@@ -1,0 +1,4 @@
+{
+  "dbUri": "mongodb://localhost/etheron_db",
+  "jwtSecret": "go beyond, plus ultra!!!!!"
+}
