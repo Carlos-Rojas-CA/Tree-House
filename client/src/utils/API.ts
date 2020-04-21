@@ -1,10 +1,10 @@
-// import axios from "axios";
-const axios = require('axios').default;
+import axios from "axios";
+//const axios = require('axios').default;
 // import Auth from '../utils/Auth'
 interface userData {
    email: string;
    password: string;
-   username?: string
+   name?: string
 }
 // interface token {
 //    token: JSON

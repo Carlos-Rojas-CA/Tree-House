@@ -3,7 +3,7 @@ const path = require("path");
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const routes = require('./server/routes')
-const config = require('./server/config');
+//const config = require('./server/config');
 const logger = require('morgan')
 const mongoose = require('mongoose')
 
@@ -14,7 +14,7 @@ const app = express();
 
 // connect to the database and load models
 // uses environmental variable for deployment (Heroku) or defaults to local config
-
+// const uri = process.env.MONGODB_URI || "mongodb://etherondb:N3!F85E7wY7ikMF@ds217208.mlab.com:17208/heroku_tqdpxpkx";
 const uri = process.env.MONGODB_URI || "mongodb://localhost/tree_house_db";
 
 mongoose.connect(uri);
