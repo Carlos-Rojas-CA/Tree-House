@@ -1,5 +1,5 @@
-import axios from "axios";
-//const axios = require('axios').default;
+// import axios from "axios";
+const axios = require('axios');
 // import Auth from '../utils/Auth'
 interface userData {
    email: string;

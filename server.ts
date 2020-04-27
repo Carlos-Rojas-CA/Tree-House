@@ -1,11 +1,12 @@
-const express = require("express");
-const path = require("path");
-const bodyParser = require('body-parser');
-const passport = require('passport');
-const routes = require('./server/routes')
-//const config = require('./server/config');
-const logger = require('morgan')
-const mongoose = require('mongoose')
+import express from "express"
+import {Express, Request, Response} from "express"
+import path from "path"
+import bodyParser from 'body-parser'
+import passport from 'passport'
+import routes from './server/routes'
+//import config from './server/config')
+import logger from 'morgan'
+import mongoose from 'mongoose'
 
 
 const PORT = process.env.PORT || 3001;
@@ -46,15 +47,20 @@ passport.use('local-signup', localSignupStrategy);
 passport.use('local-login', localLoginStrategy);
 
 // pass the authenticaion checker middleware
-const authCheckMiddleware = require('./server/middleware/auth-check');
+import authCheckMiddleware from './server/middleware/auth-check'
 app.use('/api', authCheckMiddleware);
-
+app.get("/apple", (req: Request, res: Response):void => {
+  res.send("You have my apples!")
+})
 // routes
 
 app.use(routes)
 
+
 // Send every request to the React app
 // Define any API routes before this runs
+
+
 app.get("*", function(req, res) {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
