@@ -81,12 +81,8 @@ function SignUp(props: any): any {
                 //   errors
                 // });
             });
-
-
-
-
-
     }
+
     return (
 
         <ThemeProvider theme={theme}>

@@ -1,5 +1,7 @@
 import React from 'react';
 import { fade, makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { useHistory } from "react-router-dom";
+import Auth from '../../utils/Auth'
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -15,6 +17,8 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 
+
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     grow: {
@@ -22,6 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     menuButton: {
       marginRight: theme.spacing(2),
+      color: "black"
     },
     title: {
       display: 'none',
@@ -82,7 +87,8 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function MenuAppBar() {
+export default function MenuAppBar(props: any) {
+  let history = useHistory();
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -102,6 +108,14 @@ export default function MenuAppBar() {
     setAnchorEl(null);
     handleMobileMenuClose();
   };
+ 
+  const handleMenuCloseLogout = () => {
+    setAnchorEl(null);
+    handleMobileMenuClose();
+    Auth.deauthenticateUser();
+    props.toggleAuthStatus()
+    history.push("/")
+  };
 
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setMobileMoreAnchorEl(event.currentTarget);
@@ -118,8 +132,16 @@ export default function MenuAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      {
+        props.authenticated
+        ? (<div>
+          <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+          <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+          <MenuItem onClick={handleMenuCloseLogout}>Logout</MenuItem>
+          </div>)
+        : <MenuItem onClick={handleMenuClose}>Sign In</MenuItem>
+      }
+      
     </Menu>
   );
 
@@ -171,7 +193,7 @@ export default function MenuAppBar() {
           <IconButton
             edge="start"
             className={classes.menuButton}
-            color="secondary"
+            
             aria-label="open drawer"
           >
             <MenuIcon />

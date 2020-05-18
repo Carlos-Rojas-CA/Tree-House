@@ -9,9 +9,9 @@ const UserSchema = new mongoose.Schema({
   },
   password: String,
   name: String,
-  characters: [{
+  clubs: [{
     type: Schema.Types.ObjectId,
-    ref: 'Character'
+    ref: 'Club'
   }],
   feedback: [{
     type: Schema.Types.ObjectId,
