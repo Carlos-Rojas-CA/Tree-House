@@ -15,10 +15,19 @@ interface IUser {
     password: string;
 }
 
+const useStyles = makeStyles((theme: Theme) => {
+    createStyles({
+        signInBlock: {
+            backgroundColor: "white"
+        }
+    })
+})
+
 // const useStyles = makeStyles((theme: Theme))
 
 function SignIn(props: any): any {
     let history = useHistory();
+    const classes = useStyles();
     const [user, setUser] = useState<IUser>({ email: '', password: '' })
     const [error, setError] = useState({})
 
@@ -55,7 +64,13 @@ function SignIn(props: any): any {
                     <Grid item sm={false} md={6} >
 
                     </Grid>
-                    <Grid item xs={12} sm={12} md={6}>
+                    <Grid item xs={12} sm={12} md={6} >
+                        <div style={{
+                            backgroundColor: "#fcf9f0", 
+                            padding: "10px",
+                            borderRadius: "10px",
+                            border: "2px solid #44d362",
+                            marginTop: "10px"}}>
                         <form onSubmit={processForm} noValidate>
                             <TextField
                                 variant="outlined"
@@ -72,6 +87,7 @@ function SignIn(props: any): any {
                             />
                             <TextField
                                 variant="outlined"
+                                margin="normal"
                                 required
                                 fullWidth
                                 name="password"
@@ -85,12 +101,14 @@ function SignIn(props: any): any {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            color="secondary"
+                            color="primary"
                             
                         >
                             Sign In
                         </Button>
                         </form>
+                        <a href="/signup">Sign Up</a>
+                        </div>
                     </Grid>
 
                 </Grid>

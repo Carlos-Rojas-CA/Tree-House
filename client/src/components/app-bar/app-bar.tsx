@@ -188,7 +188,7 @@ export default function MenuAppBar(props: any) {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="fixed">
+      <AppBar position="static">
         <Toolbar>
           <IconButton
             edge="start"

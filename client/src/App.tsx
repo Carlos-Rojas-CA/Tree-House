@@ -50,8 +50,8 @@ function App() {
         <div className="App">
           <MenuAppBar toggleAuthStatus={toggleAuthStatus} authenticated={authenticated}/>
           <header className="App-header">
-            <br/>
-            <Link to='/signup'>Signup</Link>
+            {/* <br/> */}
+            {/* <Link to='/signup'>Signup</Link> */}
             <Switch>
               {authenticated
                 ? <Redirect to="/dashboard" />
