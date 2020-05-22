@@ -107,7 +107,8 @@ function SignIn(props: any): any {
                             Sign In
                         </Button>
                         </form>
-                        <a href="/signup">Sign Up</a>
+                        <Typography style={{paddingTop:"10px"}} color="primary" variant="body1">New to Tree house? <a href="/signup">Sign Up!</a></Typography>
+                        
                         </div>
                     </Grid>
 

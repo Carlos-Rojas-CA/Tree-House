@@ -108,6 +108,18 @@ export default function MenuAppBar(props: any) {
     setAnchorEl(null);
     handleMobileMenuClose();
   };
+
+  const handleMenuCloseSignIn = () => {
+    setAnchorEl(null);
+    handleMobileMenuClose();
+    history.push("/")
+  };
+
+  const handleMenuCloseSignUp = () => {
+    setAnchorEl(null);
+    handleMobileMenuClose();
+    history.push("/signup")
+  };
  
   const handleMenuCloseLogout = () => {
     setAnchorEl(null);
@@ -139,7 +151,10 @@ export default function MenuAppBar(props: any) {
           <MenuItem onClick={handleMenuClose}>My account</MenuItem>
           <MenuItem onClick={handleMenuCloseLogout}>Logout</MenuItem>
           </div>)
-        : <MenuItem onClick={handleMenuClose}>Sign In</MenuItem>
+        : (<div>
+          <MenuItem onClick={handleMenuCloseSignIn}>Sign In</MenuItem>
+          <MenuItem onClick={handleMenuCloseSignUp}>Sign Up</MenuItem>
+          </div>)
       }
       
     </Menu>

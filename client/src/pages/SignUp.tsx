@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-//import Typography from '@material-ui/core/Typography';
+import Typography from '@material-ui/core/Typography';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useHistory } from "react-router-dom";
@@ -88,11 +88,19 @@ function SignUp(props: any): any {
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
                 <Grid container spacing={1}>
+                <Grid item xs={12} sm={12} md={12} >
+                <div style={{
+                            backgroundColor: "#fcf9f0", 
+                            padding: "10px",
+                            borderRadius: "10px",
+                            border: "2px solid #44d362",
+                            marginTop: "10px"}}>
                     <form className={classes.form} onSubmit={processForm} noValidate>
-                        <Grid item xs={12} sm={12}>
+                        
                             <TextField
                                 autoComplete="name"
                                 name="name"
+                                margin="normal"
                                 variant="outlined"
                                 required
                                 fullWidth
@@ -106,29 +114,31 @@ function SignUp(props: any): any {
                                     ? <Alert severity="error">{error.name}</Alert>
                                     : null
                             } */}
-                        </Grid>
-                        <Grid item xs={12}>
+                        
+                        
                             <TextField
                                 variant="outlined"
                                 required
                                 fullWidth
+                                margin="normal"
                                 id="email"
                                 label="Email Address"
                                 onChange={(event) => { setUser({ ...user, email: event.target.value.trim().toLowerCase() }) }}
                                 name="email"
                                 autoComplete="email"
                             />
-                        </Grid>
+                        
                         {/* {
                             error.email
                                 ? <Alert severity="error">{error.email}</Alert>
                                 : null
                         } */}
-                        <Grid item xs={12}>
+                        
                             <TextField
                                 variant="outlined"
                                 required
                                 fullWidth
+                                margin="normal"
                                 name="password"
                                 label="Password"
                                 type="password"
@@ -136,7 +146,7 @@ function SignUp(props: any): any {
                                 id="password"
                                 autoComplete="current-password"
                             />
-                        </Grid>
+                        
                         {/* {
                             error.password
                                 ? <Alert severity="error">{error.password}</Alert>
@@ -146,12 +156,15 @@ function SignUp(props: any): any {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            color="secondary"
+                            color="primary"
                             className={classes.submit}
                         >
                             Sign Up
                         </Button>
                     </form>
+                    <Typography style={{paddingTop:"10px"}} color="primary" variant="body1">Already have an account? <a href="/signin">Sign In!</a></Typography>
+                    </div>
+                    </Grid>
                 </Grid>
             </Container>
             <h1>SignUp</h1>
