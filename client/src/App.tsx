@@ -53,12 +53,6 @@ function App() {
             {/* <br/> */}
             {/* <Link to='/signup'>Signup</Link> */}
             <Switch>
-              {authenticated
-                ? <Redirect to="/dashboard" />
-                :<Route exact path='/signup' component={() => (<SignUp toggleAuthStatus={toggleAuthStatus} />)} />
-
-              }
-              
               <Route exact path='/error' component={() => (<Error toggleAuthStatus={toggleAuthStatus} />)} />
               <Route exact path='/' component={()=> (authenticated
                 ? <Redirect to="/dashboard" />
