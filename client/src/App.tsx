@@ -59,6 +59,7 @@ function App() {
                 : <SignIn toggleAuthStatus={toggleAuthStatus} />)} >
               </Route>
               <Route exact path='/signin' component={() => (<SignIn toggleAuthStatus={toggleAuthStatus} />)} />
+              <Route exact path='/signup' component={() => (<SignUp toggleAuthStatus={toggleAuthStatus} />)} />
               <PrivateRoute exact path="/dashboard" component={() => <Dashboard toggleAuthStatus={toggleAuthStatus} />} />
 
             </Switch>

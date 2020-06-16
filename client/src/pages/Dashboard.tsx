@@ -10,6 +10,14 @@ import Auth from '../utils/Auth';
 import API from '../utils/API';
 import Button from '@material-ui/core/Button';
 
+interface IScrapeData {
+    data: {
+        images: Array<string> | string;
+        price: string;
+        title: string;
+    }
+}
+
 const useStyles = makeStyles(theme => ({
     paper: {
         marginTop: theme.spacing(8),
@@ -37,13 +45,33 @@ function Dashboard(props: any): any {
     // const classes = useStyles();
 
     const updateField = (e: any) => {
-        setWebLink( e.target.value)
+        setWebLink(e.target.value)
     }
 
-    const searchLink = (e:any) => {
+
+
+    // Form submit to add website to a card.
+    const searchLink = (e: any) => {
         e.preventDefault();
-        if (webLink!='')
-        console.log("this will do something eventually....")
+        if (webLink != '') {
+            loading();
+            API.scrape(webLink)
+                .then(({ data }: IScrapeData) => {
+                    console.log("before")
+                    console.log(data)
+                    console.log("after")
+                    //create a new card function
+                    
+                }
+                )
+        }
+
+    }
+
+    const loading = () => {
+        ///this is a loading effect after submitting
+        setWebLink("")
+        //this is were I create the loading stuff
     }
 
 
@@ -57,22 +85,23 @@ function Dashboard(props: any): any {
                 }}>
                     <h1>Dashboard</h1>
                     <p>Enter a Link</p>
-                    <form className={classes.form} onSubmit={searchLink} noValidate>
+                    <form id="link-form" className={classes.form} onSubmit={searchLink} noValidate>
                         <TextField
                             name="link"
                             margin="dense"
                             variant="standard"
-                            style={{marginRight: "5px"}}
+                            style={{ marginRight: "5px" }}
                             required
                             id="link"
                             label="Link-Search"
                             color="secondary"
                             onChange={(event) => { updateField(event) }}
+                            value={webLink}
                             autoFocus
                         />
                         <Button
                             type="submit"
-                            
+
                             // fullWidth
                             variant="outlined"
                             color="secondary"

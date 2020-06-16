@@ -1,4 +1,7 @@
 const puppeteer = require('puppeteer')
+// const router = require('express').Router();
+// const puppeteer = require('puppeteer')
+
 
 //This isn't utilizing TypeScript, need to try to implement it at least or switch to JS.
 //To Do: scrape bedrooms, sqft, available, description, map address, area.
@@ -85,8 +88,13 @@ async function textData(page) {
     return { title: titleTxt, price: priceTxt }
 }
 
-module.exports = scrapeData;
+// router.route("/")
+//     .get(scrapeData(url))
 
+module.exports = scrapeData
+//  scrapeData;
+
+// scrapeData("https://sandiego.craigslist.org/csd/vac/d/san-diego-beautiful-mission-beach-condo/7142598571.html")
 
 //These are/were test sites on June 4th, 2020.
 

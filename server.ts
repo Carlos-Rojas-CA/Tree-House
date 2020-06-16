@@ -7,10 +7,13 @@ import routes from './server/routes'
 //import config from './server/config')
 import logger from 'morgan'
 import mongoose from 'mongoose'
+const scrapeData = require('./scrapper')
+// import scrapeData from './scrapper'
 
 
 const PORT = process.env.PORT || 3001;
 const app = express();
+//
 
 
 // connect to the database and load models
@@ -49,8 +52,17 @@ passport.use('local-login', localLoginStrategy);
 // pass the authenticaion checker middleware
 import authCheckMiddleware from './server/middleware/auth-check'
 app.use('/api', authCheckMiddleware);
+app.post('/scrape', async(req: Request, res: Response) => {
+  console.log(req.body.url)
+  var data: JSON;
+  await console.log(scrapeData(req.body.url));
+  data = await scrapeData(req.body.url)
+  res.send(data)
+  // res.send(req.body.url)
+} )
 app.get("/apple", (req: Request, res: Response):void => {
-  res.send("You have my apples!")
+  console.log("apples")
+  res.send(req.body.url)
 })
 // routes
 

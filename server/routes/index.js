@@ -2,11 +2,11 @@ const path = require("path");
 const router = require("express").Router();
 const apiRoutes = require("./api");
 const authRoutes = require("./auth/auth")
-const gameRoutes = require("./game")
+const treeRoutes = require("./tree")
 
 // API Routes
 router.use("/api", apiRoutes);
-router.use("/game", gameRoutes);
+router.use("/tree", treeRoutes);
 router.use("/auth", authRoutes);
 
 // If no API routes are hit, send the React app

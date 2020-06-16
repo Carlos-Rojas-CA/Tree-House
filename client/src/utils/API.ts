@@ -21,6 +21,8 @@ export default {
       axios.post('/auth/signup', userData),
    dashboard: (token: string) =>
       axios.get('/api/dashboard', { headers: { Authorization: `bearer ${token}` } }),
+   scrape: (url: string) => 
+      axios.post('/scrape', {url: url})
    // createCharacter: data =>
    //    axios.post('/game/characters', data),
    // getCharacters: id =>
