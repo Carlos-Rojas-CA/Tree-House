@@ -16,7 +16,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
-
+import {theme as palette} from '../../utils/themeUtil'
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     menuButton: {
       marginRight: theme.spacing(2),
-      color: "black"
+      color: palette.palette.secondary.main
     },
     title: {
       display: 'none',

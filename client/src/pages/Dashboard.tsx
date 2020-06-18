@@ -9,6 +9,7 @@ import theme from '../utils/themeUtil';
 import Auth from '../utils/Auth';
 import API from '../utils/API';
 import Button from '@material-ui/core/Button';
+import LinkModal from '../components/modal/linkModal'
 
 interface IScrapeData {
     data: {
@@ -42,37 +43,17 @@ function Dashboard(props: any): any {
     let history = useHistory();
     const classes = useStyles();
     const [webLink, setWebLink] = useState("")
+    const [addedLink, setAddedLink] = useState(1)
+    const [loadedLink, setLoadedLink] = useState(false)
     // const classes = useStyles();
 
-    const updateField = (e: any) => {
-        setWebLink(e.target.value)
-    }
+useEffect(()=>{
+    console.log("refresh")
+    console.log(addedLink)
+}, [addedLink])
 
 
 
-    // Form submit to add website to a card.
-    const searchLink = (e: any) => {
-        e.preventDefault();
-        if (webLink != '') {
-            loading();
-            API.scrape(webLink)
-                .then(({ data }: IScrapeData) => {
-                    console.log("before")
-                    console.log(data)
-                    console.log("after")
-                    //create a new card function
-                    
-                }
-                )
-        }
-
-    }
-
-    const loading = () => {
-        ///this is a loading effect after submitting
-        setWebLink("")
-        //this is were I create the loading stuff
-    }
 
 
 
@@ -84,33 +65,8 @@ function Dashboard(props: any): any {
                     borderRadius: "20px"
                 }}>
                     <h1>Dashboard</h1>
+                    <LinkModal setAddedLink={setAddedLink} addedLink={addedLink} />
                     <p>Enter a Link</p>
-                    <form id="link-form" className={classes.form} onSubmit={searchLink} noValidate>
-                        <TextField
-                            name="link"
-                            margin="dense"
-                            variant="standard"
-                            style={{ marginRight: "5px" }}
-                            required
-                            id="link"
-                            label="Link-Search"
-                            color="secondary"
-                            onChange={(event) => { updateField(event) }}
-                            value={webLink}
-                            autoFocus
-                        />
-                        <Button
-                            type="submit"
-
-                            // fullWidth
-                            variant="outlined"
-                            color="secondary"
-                            className={classes.submit}
-                        >
-                            Search
-                        </Button>
-                    </form>
-
                 </div>
             </Container>
         </ThemeProvider>
