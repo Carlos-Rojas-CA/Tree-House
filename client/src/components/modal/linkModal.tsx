@@ -4,6 +4,9 @@ import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import API from '../../utils/API';
+import theme from '../../utils/themeUtil'
+
+const palette = theme
 
 interface IScrapeData {
     data: {
@@ -24,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
             transform: "translate(-50%, -50%)",
             minWidth: '300px',
             width: '40%',
-            backgroundColor: "#44d362",
+            backgroundColor: palette.palette.primary.main,
             //   border: '2px solid #44d362',
             boxShadow: theme.shadows[5],
             padding: theme.spacing(2, 4, 3),
@@ -66,7 +69,7 @@ export default function LinkModal(props: any) {
 
     const searchLink = (e: any) => {
         e.preventDefault();
-        if (webLink != '') {
+        if (webLink !== '') {
             loadingEffect();
             API.scrape(webLink)
                 .then(({ data }: IScrapeData) => {
@@ -119,8 +122,9 @@ export default function LinkModal(props: any) {
                             name="link"
                             margin="dense"
                             variant="standard"
-                            style={{ marginRight: "5px" }}
+                            style={{ marginRight: "10px",}}
                             required
+                            fullWidth={true}
                             id="link"
                             label="Link-Search"
                             color="secondary"
@@ -131,7 +135,7 @@ export default function LinkModal(props: any) {
                         <Button
                             type="submit"
 
-                            // fullWidth
+                            fullWidth={true}
                             variant="outlined"
                             color="secondary"
                             className={classes.submit}
