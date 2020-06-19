@@ -1,41 +1,52 @@
 // import axios from "axios";
 const axios = require('axios');
-// import Auth from '../utils/Auth'
+// import Auth from './Auth'
+
 interface userData {
    email: string;
    password: string;
    name?: string
 }
-// interface token {
-//    token: JSON
-// }
+
+interface ITreeHouseFormat {
+   name: string;
+   controller: string;
+   houses: {
+      images: string[],
+      price: string,
+      description: string,
+      comments?: [{
+         user: string,
+         comment: string,
+      }]
+   }[];
+   users: string[];
+}
+
 
 //methods for interacting with API Auth routes
 export default {
-   // logine: (userData: {
-   //    email: string
-   //    }) => axios.post("/auth/login", userData),
 
    login: (userData: userData ) => axios.post("/auth/login", userData),
    signUp: (userData: userData ) =>
       axios.post('/auth/signup', userData),
-   dashboard: (token: string) =>
+   dashboard: (token: string|null) =>
       axios.get('/api/dashboard', { headers: { Authorization: `bearer ${token}` } }),
    scrape: (url: string) => 
-      axios.post('/scrape', {url: url})
-   // createCharacter: data =>
-   //    axios.post('/game/characters', data),
-   // getCharacters: id =>
-   //    axios.get('/game/characters/' + id),
-   // deleteCharacter: id =>
-   //    axios.delete('/game/characters/' + id),
-   // updateCharacter: (id, data) =>
-   //    axios.put('/game/characters/' + id, data),
+      axios.post('/scrape', {url: url}),
+   createTreeHouse: (data: ITreeHouseFormat) =>
+      axios.post('/tree/treeHouses', data),
+   getTreeHouse: (id: string) =>
+      axios.get('/tree/treeHouses/' + id),
+   // deleteTreeHouse: id =>
+   //    axios.delete('/tree/treeHouses/' + id),
+   updateTreeHouse: (id: string, data: ITreeHouseFormat) =>
+      axios.put('/tree/treeHouses/' + id, data),
    // sendFeed: (data) =>
-   //    axios.post('/game/feedback', data),
+   //    axios.post('/tree/feedback', data),
    // getFeed: (id) => {
    //    // if(id==='123456789'){
-   //    axios.get('/game/feedback')
+   //    axios.get('/tree/feedback')
    //    // }
    // }
 };

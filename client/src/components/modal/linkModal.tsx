@@ -5,6 +5,8 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import API from '../../utils/API';
 import theme from '../../utils/themeUtil'
+import LoadingAnimation from '../loadingAnimation/loading-animation'
+// import { CircleLoading } from 'react-loadingg';
 
 const palette = theme
 
@@ -114,15 +116,16 @@ export default function LinkModal(props: any) {
             </h2>
             {
                 loading
-                    ? <p id="simple-modal-description" style={{ textAlign: "center" }}>
+                    ? <div> <br /> <LoadingAnimation /> <p id="simple-modal-description" style={{ textAlign: "center" }}>
                         Thank you for the link.
                         </p>
+                    </div>
                     : (<form id="link-form" className={classes.form} onSubmit={sendSearch} noValidate>
                         <TextField
                             name="link"
                             margin="dense"
                             variant="standard"
-                            style={{ marginRight: "10px",}}
+                            style={{ marginRight: "10px", }}
                             required
                             fullWidth={true}
                             id="link"

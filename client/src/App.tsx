@@ -14,8 +14,7 @@ import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 import Error from './pages/Error'
 import './App.css';
-//import e from 'express';
-import API from './utils/API';
+// import API from './utils/API';
 
 
 interface IUser {
@@ -28,14 +27,17 @@ function App() {
   // let history = useHistory()
   // Setting our component's initial state
   const [authenticated, setAuthenticated] = useState(false)
+  // const [a, setA] = useState([])
+  // const [user, setUser] = useState({_id: "", name: "", email: "", treeHouses: []})
   //const [user, setUser] = useState<IUser>({name: '', email: '', password: ''})
   
   //const [formObject, setFormObject] = useState({})
-  
 
   // Toggles if the user is authenticated.
   useEffect(() => {
     toggleAuthStatus()
+    
+
   }, [])
 
   const toggleAuthStatus = () => {

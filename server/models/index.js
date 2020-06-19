@@ -1,6 +1,6 @@
 module.exports = {
   // load models
   User: require('./user'),
-  Club: require('./club')
+  TreeHouse: require('./treeHouse')
 
 };

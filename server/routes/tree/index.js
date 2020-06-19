@@ -1,12 +1,11 @@
 const router = require("express").Router();
-const characterRoutes = require("./characters")
-const feedbackRoutes = require('./feedback')
+const treeHouseRoutes = require("./treeHouses")
+// const feedbackRoutes = require('./feedback')
 // const scrape = require ("./scrapper")
 
 // /tree routes
-// router.use("/dashboard", dashboardRoutes);
-router.use("/characters", characterRoutes)
-router.use("/feedback", feedbackRoutes)
-// router.use("/scrapper", scrape)
+router.use("/treeHouses", treeHouseRoutes)
+// router.use("/feedback", feedbackRoutes)
+
 
 module.exports = router;

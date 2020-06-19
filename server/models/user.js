@@ -9,14 +9,14 @@ const UserSchema = new mongoose.Schema({
   },
   password: String,
   name: String,
-  clubs: [{
+  treeHouses: [{
     type: Schema.Types.ObjectId,
-    ref: 'Club'
+    ref: 'TreeHouse'
   }],
-  feedback: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Feedback'
-  }]
+  // feedback: [{
+  //   type: Schema.Types.ObjectId,
+  //   ref: 'Feedback'
+  // }]
 });
 
 
