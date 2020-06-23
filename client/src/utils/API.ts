@@ -38,6 +38,8 @@ export default {
       axios.post('/tree/treeHouses', data),
    getTreeHouse: (id: string) =>
       axios.get('/tree/treeHouses/' + id),
+   getTreeHouses: (id: string) =>
+      axios.get('/tree/treeHouses/all/' + id),
    // deleteTreeHouse: id =>
    //    axios.delete('/tree/treeHouses/' + id),
    updateTreeHouse: (id: string, data: ITreeHouseFormat) =>

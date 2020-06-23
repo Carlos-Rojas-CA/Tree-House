@@ -5,12 +5,12 @@ module.exports = {
   find: function (req, res) {
     console.log('here')
     console.log(req.params)
-    db.User
-      .findById(req.params.id)
-      .populate("treeHouse")
+    db.TreeHouse
+      .find({ users: req.params.id})
+      // .populate("treeHouse")
       .sort({ date: 1 })
-      .then(dbUser => {
-        res.json(dbUser)
+      .then(dbTreeHouses => {
+        res.json(dbTreeHouses)
       })
       .catch(err => {
         res.json(err);
