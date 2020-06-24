@@ -23,6 +23,13 @@ interface ITreeHouseFormat {
    users: string[];
 }
 
+interface ITreeHouseData {
+   images: string[]|string,
+   price: string,
+   title: string,
+   // description: string,
+}
+
 
 //methods for interacting with API Auth routes
 export default {
@@ -42,7 +49,7 @@ export default {
       axios.get('/tree/treeHouses/all/' + id),
    // deleteTreeHouse: id =>
    //    axios.delete('/tree/treeHouses/' + id),
-   updateTreeHouse: (id: string, data: ITreeHouseFormat) =>
+   updateTreeHouse: (id: string, data: ITreeHouseData) =>
       axios.put('/tree/treeHouses/' + id, data),
    // sendFeed: (data) =>
    //    axios.post('/tree/feedback', data),

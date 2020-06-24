@@ -28,6 +28,7 @@ module.exports = {
       .populate("controller")
       .populate("user")
       .populate("users")
+      .populate('pending')
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
@@ -47,7 +48,7 @@ module.exports = {
   },
   update: function (req, res) {
     db.TreeHouse
-      .findOneAndUpdate({ _id: req.params.id }, req.body)
+      .findOneAndUpdate({ _id: req.params.id }, {$push: {houses: req.body}})
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },

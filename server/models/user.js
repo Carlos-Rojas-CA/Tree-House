@@ -13,6 +13,10 @@ const UserSchema = new mongoose.Schema({
     type: Schema.Types.ObjectId,
     ref: 'TreeHouse'
   }],
+  requests: [{
+    type: Schema.Types.ObjectId,
+    ref: 'TreeHouse'
+  }],
   // feedback: [{
   //   type: Schema.Types.ObjectId,
   //   ref: 'Feedback'

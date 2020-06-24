@@ -84,7 +84,10 @@ export default function LinkModal(props: any) {
                     props.setAddedLink(props.addedLink * -1) //This will cause the Dashboard to refresh.
                     handleClose()
                     //Added to database.
-
+                    API.updateTreeHouse(props.club, data)
+                    .then((results: any) => {
+                        console.log(results)
+                    })
 
                     //create a new card function
 

@@ -12,6 +12,7 @@ const TreeHouseSchema = new mongoose.Schema({
   houses: [{
     images: [String],
     price: String,
+    title: String,
     description: String,
     comments: [{
       user: {
@@ -22,6 +23,10 @@ const TreeHouseSchema = new mongoose.Schema({
     }]
   }],
   users: [{
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  }],
+  pending: [{
     type: Schema.Types.ObjectId,
     ref: 'User'
   }],

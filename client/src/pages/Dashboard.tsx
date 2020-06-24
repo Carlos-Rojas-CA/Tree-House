@@ -53,6 +53,7 @@ function Dashboard(props: any): any {
     const [addedLink, setAddedLink] = useState(1)
     const [loadedLink, setLoadedLink] = useState(false)
     const [user, setUser] = useState({_id: "", name: "", email: "", treeHouses: [""]})
+    const [club, setClub] = useState("")
     //const [name, setName] = useState('')
   
     // const classes = useStyles();
@@ -68,7 +69,8 @@ useEffect(()=>{
         })
         API.getTreeHouses(userData._id)
         .then((resd:any) => {
-            console.log(resd)
+            setClub(resd.data[0]._id)
+            console.log(resd.data[0]._id)
         })
 
       })
@@ -107,7 +109,7 @@ const addTreeHouse = (e:any) => {
                     borderRadius: "20px"
                 }}>
                     <h1>Dashboard</h1>
-                    <LinkModal setAddedLink={setAddedLink} addedLink={addedLink} />
+                    <LinkModal setAddedLink={setAddedLink} addedLink={addedLink} club={club}/>
                     <ClubModal />
                     <p>Enter a Link</p>
                     <form id="add-test" className={classes.form} onSubmit={addTreeHouse} noValidate>
