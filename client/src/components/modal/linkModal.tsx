@@ -15,6 +15,11 @@ interface IScrapeData {
         images: Array<string> | string;
         price: string;
         title: string;
+        bed: number,
+        bath: number,
+        location?: string,
+        address?: string,
+        website: string,
     }
 }
 
@@ -81,13 +86,14 @@ export default function LinkModal(props: any) {
 
                     //Everything following is after a post to the database
 
-                    props.setAddedLink(props.addedLink * -1) //This will cause the Dashboard to refresh.
+                    
                     handleClose()
                     //Added to database.
                     API.updateTreeHouse(props.club, data)
-                    .then((results: any) => {
-                        console.log(results)
-                    })
+                        .then((results: any) => {
+                            props.setAddedLink(props.addedLink * -1) //This will cause the Dashboard to refresh.
+                            console.log(results)
+                        })
 
                     //create a new card function
 
@@ -104,8 +110,12 @@ export default function LinkModal(props: any) {
     }
 
     const sendSearch = (e: any) => {
-        setLoading(true)
-        searchLink(e)
+        if (webLink !== '') {
+            setLoading(true)
+            searchLink(e)
+        }
+        //else error
+
     }
 
     const body = (

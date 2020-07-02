@@ -54,6 +54,16 @@ module.exports = {
   },
   remove: function (req, res) {
     db.TreeHouse
+      .updateOne(
+        {_id: req.body.id},
+        {$pull: {"houses": { _id: req.body.houseId }}}
+        )
+      // .then(dbModel => dbModel.remove())
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+  removeClub: function (req, res) {
+    db.TreeHouse
       .findById(req.params.id)
       .then(dbModel => dbModel.remove())
       .then(dbModel => res.json(dbModel))

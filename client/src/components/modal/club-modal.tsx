@@ -9,6 +9,8 @@ import LoadingAnimation from '../loadingAnimation/loading-animation'
 import CircleImage from '../circle-image/circle-image'
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container'
+import Avatar from '@material-ui/core/Avatar';
+import { deepOrange, deepPurple } from '@material-ui/core/colors';
 // import { CircleLoading } from 'react-loadingg';
 
 const palette = theme
@@ -44,6 +46,26 @@ const useStyles = makeStyles((theme: Theme) =>
         submit: {
             margin: theme.spacing(3, 0, 2),
         },
+        small: {
+            width: theme.spacing(3),
+            height: theme.spacing(3),
+        },
+        large: {
+            width: theme.spacing(7),
+            height: theme.spacing(7),
+        },
+        orange: {
+            color: theme.palette.getContrastText(deepOrange[500]),
+            backgroundColor: deepOrange[500],
+            width: theme.spacing(7),
+            height: theme.spacing(7),
+        },
+        purple: {
+            color: theme.palette.getContrastText(deepPurple[500]),
+            backgroundColor: deepPurple[500],
+            width: theme.spacing(12),
+            height: theme.spacing(12),
+        },
     }),
 );
 
@@ -70,14 +92,14 @@ export default function ClubModal(props: any) {
 
 
 
-    
+
 
     const body = (
         <Container className={classes.paper}>
-            <h2 style={{textAlign: "center"}} > Which club?</h2>
+            <h2 style={{ textAlign: "center" }} > Which club?</h2>
             <Grid container spacing={2}>
                 <Grid item xs={6} sm={6} md={4}>
-                    <CircleImage clubName={"Carlos"} />
+                    <Avatar className={classes.purple}> CR </Avatar>
                 </Grid>
                 <Grid item xs={6} sm={6} md={4}>
                     <CircleImage clubName={"Carl"} />
@@ -86,10 +108,10 @@ export default function ClubModal(props: any) {
                     <CircleImage clubName={"Cyndy"} />
                 </Grid>
             </Grid>
-            
-            
+
+
         </Container>
-        
+
     );
 
     return (

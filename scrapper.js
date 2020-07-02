@@ -13,9 +13,28 @@ async function scrapeData(url) {
     await page.goto(url);
     const content = await page.content();
 
+    //calls the scrapper based on the webite
+    var site = url.split(".")[1].toLowerCase()
+    switch (site) {
+        case 'craigslist':
+            return craigslist(brower, page, url)
+            break;
+        case 'zillow':
+            console.log('zillow')
+            break;
+        default:
+            console.log('default')
+    }
 
 
-    //Checks if page has been deleted
+
+}
+
+
+
+//Checks if page has been deleted
+
+async function craigslist(brower, page, url) {
     const [deleted] = await page.$x('/html/body/section/section/div/div[2]/h2')
     if (deleted != null) {
         const del = await deleted.getProperty('textContent')
@@ -34,9 +53,18 @@ async function scrapeData(url) {
     //If statement for no images
     if (!el) {
 
-        const titleAndPrice = await textData(page)
+        const infoData = await craigslistTextData(page)
         brower.close();
-        const craigslistData = { images: "No Pictures", title: titleAndPrice.title, price: titleAndPrice.price }
+        const craigslistData = {
+            images: "No Pictures",
+            title: infoData.title,
+            price: infoData.price,
+            bed: infoData.bed,
+            bath: infoData.bath,
+            location: infoData.location,
+            address: infoData.address,
+            website: url,
+        }
         console.log(craigslistData)
         return craigslistData
     } else {             //Else statement if there are images.
@@ -62,10 +90,19 @@ async function scrapeData(url) {
                 images.push(srcTxt1)
             }
         }
-        const titleAndPrice = await textData(page)
-        // console.log({ numberImgs, images, srcTxt, titleAndPrice })
+        const infoData = await craigslistTextData(page)
+        // console.log({ numberImgs, images, srcTxt, infoData })
         brower.close();
-        const craigslistData = { images: images, title: titleAndPrice.title, price: titleAndPrice.price }
+        const craigslistData = {
+            images: images,
+            title: infoData.title,
+            price: infoData.price,
+            bed: infoData.bed,
+            bath: infoData.bath,
+            location: infoData.location,
+            address: infoData.address,
+            website: url,
+        }
         console.log(craigslistData)
         return craigslistData
     }
@@ -73,7 +110,15 @@ async function scrapeData(url) {
 
 }
 
-async function textData(page) {
+
+async function craigslistTextData(page) {
+
+    let bed = '';
+    let bath = '';
+    let address = '';
+    let location = '';
+    let addressHyper = ''
+
     //This gets the title of the ad.
     const [el2] = await page.$x('//*[@id="titletextonly"]')
     const title = await el2.getProperty('textContent')
@@ -85,7 +130,47 @@ async function textData(page) {
     const price = await el3.getProperty('textContent')
     const priceTxt = await price.jsonValue();
     const priceNum = parseInt(priceTxt.split("$").pop())  //In the case I want a number instead of a string.
-    return { title: titleTxt, price: priceTxt }
+
+    // Checks elements for bedroom number
+    const [el4] = await page.$x("/html/body/section/section/section/div[1]/p[1]/span[1]/b[1]");
+    if (el4 != null) {
+        const bedEl = await el4.getProperty('textContent')
+        const bedTxt = await bedEl.jsonValue();
+        bed = parseInt(bedTxt.toLowerCase().split('br')[0])
+    }
+
+    // Checks elements for bathroom number
+    const [el5] = await page.$x("/html/body/section/section/section/div[1]/p[1]/span[1]/b[2]");
+    if (el5 != null) {
+        const bathEl = await el5.getProperty('textContent')
+        const bathTxt = await bathEl.jsonValue();
+        bath = parseInt(bathTxt.split('Ba')[0]);
+        // bath = bathTxt
+    }
+
+    const [el6] = await page.$x("/html/body/section/section/section/div[1]/div/div[2]")
+    if (el6 != null) {
+        const addressEl = await el6.getProperty('textContent')
+        address = await addressEl.jsonValue();
+    }
+
+    const [el7] = await page.$x("/html/body/section/section/section/div[1]/div/p/small/a")
+    if (el7 != null) {
+        const addressHyperEl = await el7.getProperty('href')
+        addressHyper = await addressHyperEl.jsonValue()
+    }
+
+    const [el8] = await page.$x("/html/body/section/section/h2/span/small")
+    if (el8 != null) {
+        const locationEl = await el8.getProperty('textContent')
+        const locationText = await locationEl.jsonValue();
+        location = locationText.split('(')[1].split(')')[0]
+    }
+
+
+
+
+    return { title: titleTxt, price: priceTxt, bed: bed, bath: bath, address: address, location: location, addressHyper: addressHyper }
 }
 
 // router.route("/")
@@ -94,7 +179,9 @@ async function textData(page) {
 module.exports = scrapeData
 //  scrapeData;
 
-// scrapeData("https://sandiego.craigslist.org/csd/vac/d/san-diego-beautiful-mission-beach-condo/7142598571.html")
+// scrapeData("https://sandiego.craigslist.org/nsd/apa/d/escondido-top-floor-one-bedroom/7138810225.html")
+
+// scrapeData('https://sandiego.craigslist.org/csd/apa/d/del-mar-cozy-house-4br2bath-in/7147529248.html')
 
 //These are/were test sites on June 4th, 2020.
 

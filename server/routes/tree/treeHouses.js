@@ -5,7 +5,7 @@ const treeHousesController = require("../../controllers/treeHouseController");
 const userController = require("../../controllers/usersController")
 
 // Matches with "/tree/treeHouses"
-router.route("/")
+router.route("/club/")
   // .get(treeHousesController.find)
   .post(treeHousesController.create);
 

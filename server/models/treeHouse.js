@@ -14,6 +14,14 @@ const TreeHouseSchema = new mongoose.Schema({
     price: String,
     title: String,
     description: String,
+    website: String,
+    bed: Number,
+    bath: Number,
+    location: String,
+    zip: Number,
+    address: String,
+    contact: String,
+    sqft: String,
     comments: [{
       user: {
         type: Schema.Types.ObjectId,

@@ -11,15 +11,15 @@ interface userData {
 interface ITreeHouseFormat {
    name: string;
    controller: string;
-   houses: {
-      images: string[],
-      price: string,
-      description: string,
-      comments?: [{
-         user: string,
-         comment: string,
-      }]
-   }[];
+   // houses: {
+   //    images: string[],
+   //    price: string,
+   //    description: string,
+   //    comments?: [{
+   //       user: string,
+   //       comment: string,
+   //    }]
+   // }[];
    users: string[];
 }
 
@@ -27,6 +27,11 @@ interface ITreeHouseData {
    images: string[]|string,
    price: string,
    title: string,
+   bed: number,
+   bath: number,
+   location?: string,
+   address?: string,
+   website: string,
    // description: string,
 }
 
@@ -41,14 +46,14 @@ export default {
       axios.get('/api/dashboard', { headers: { Authorization: `bearer ${token}` } }),
    scrape: (url: string) => 
       axios.post('/scrape', {url: url}),
-   createTreeHouse: (data: ITreeHouseFormat) =>
-      axios.post('/tree/treeHouses', data),
+   createTreeHouseClub: (data: ITreeHouseFormat) =>
+      axios.post('/tree/treeHouses/club', data),
    getTreeHouse: (id: string) =>
       axios.get('/tree/treeHouses/' + id),
    getTreeHouses: (id: string) =>
       axios.get('/tree/treeHouses/all/' + id),
-   // deleteTreeHouse: id =>
-   //    axios.delete('/tree/treeHouses/' + id),
+   deleteTreeHouse: (selector: { id: string, houseId: string }) =>
+      axios.delete('/tree/treeHouses/' + selector.id, selector),
    updateTreeHouse: (id: string, data: ITreeHouseData) =>
       axios.put('/tree/treeHouses/' + id, data),
    // sendFeed: (data) =>
