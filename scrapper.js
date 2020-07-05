@@ -1,4 +1,6 @@
 const puppeteer = require('puppeteer')
+const $ = require("jquery");
+
 // const router = require('express').Router();
 // const puppeteer = require('puppeteer')
 
@@ -64,8 +66,11 @@ async function craigslist(brower, page, url) {
             location: infoData.location,
             address: infoData.address,
             website: url,
+            sqft: infoData.sqft,
+            description: infoData.description,
+            addressHyper: infoData.addressHyper,
         }
-        console.log(craigslistData)
+        // console.log(craigslistData)
         return craigslistData
     } else {             //Else statement if there are images.
         const src = await el.getProperty('src')
@@ -78,6 +83,9 @@ async function craigslist(brower, page, url) {
         const numbTxt = await numb.jsonValue();
         const numberImgs = parseInt(numbTxt.split("of ").pop())
         const selector = "a[id^='2_thumb_']"
+        
+
+        //document.querySelector("#postingbody")
 
 
         //This gets the rest of the images if there are more than 1.
@@ -102,8 +110,11 @@ async function craigslist(brower, page, url) {
             location: infoData.location,
             address: infoData.address,
             website: url,
+            sqft: infoData.sqft,
+            description: infoData.description,
+            addressHyper: infoData.addressHyper,
         }
-        console.log(craigslistData)
+        // console.log(craigslistData)
         return craigslistData
     }
 
@@ -117,7 +128,10 @@ async function craigslistTextData(page) {
     let bath = '';
     let address = '';
     let location = '';
-    let addressHyper = ''
+    let addressHyper = '';
+    let sqftText = '';
+    let description = '';
+    const selctor2 = "section[id='postingbody']"
 
     //This gets the title of the ad.
     const [el2] = await page.$x('//*[@id="titletextonly"]')
@@ -167,10 +181,41 @@ async function craigslistTextData(page) {
         location = locationText.split('(')[1].split(')')[0]
     }
 
+    ///html/body/section/section/section/div[1]/p[1]/span[2]/b
+    ///html/body/section/section/section/div[1]/p[1]/span[3]
+
+    const [el9] = await page.$x("html/body/section/section/section/div[1]/p[1]/span[2]/b")
+    if (el9 != null) {
+        const sqftEl = await el9.getProperty('textContent')
+        sqftText = await sqftEl.jsonValue();
+        // console.log(sqftText, "180")
+    }
+
+    const [el12] = await page.$x('//*[@id="postingbody"]')
+    if (el12 != null) {
+        const descriptEl = await el12.getProperty('textContent')
+        description = await descriptEl.jsonValue();
+        description = description.split('QR Code Link to This Post')[1].trim()
+        descritption = description.split('Search Keywords:')[0].trim()
+    }
+
+    // console.log("here 186")
+    // const el10 = await page.$('#postingbody')
 
 
+    // console.log("here 194")
+    // const html = await page.evaluate(body => body.innerHTML, el10);
+    // console.log("here 198")
+    // //console.log(el10)
+    // if (el10 != null) {
+    //     // console.log(el10)
+    //     // const descriptEl = await el10.getProperty('textContent')
+    //     // sqftText = await sqftEl.jsonValue();
+    //     // console.log(sqftText, "180")
+    // }
 
-    return { title: titleTxt, price: priceTxt, bed: bed, bath: bath, address: address, location: location, addressHyper: addressHyper }
+
+    return { title: titleTxt, price: priceTxt, bed: bed, bath: bath, address: address, location: location, addressHyper: addressHyper, sqft: sqftText, description: description}
 }
 
 // router.route("/")
@@ -186,7 +231,7 @@ module.exports = scrapeData
 //These are/were test sites on June 4th, 2020.
 
 //Deleted
-// scrapeData("https://sandiego.craigslist.org/nsd/apa/d/carlsbad-studio-1-ba-all-incl-beach/7134356372.html")
+// scrapeData("https://sandiego.craigslist.org/csd/apa/d/san-diego-great-location/7152453824.html")
 
 //Multiple Images
 // scrapeData("https://sandiego.craigslist.org/csd/apa/d/san-diego-lovely-home-1bed-1bath/7118284488.html")

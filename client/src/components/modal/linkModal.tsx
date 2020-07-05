@@ -20,6 +20,9 @@ interface IScrapeData {
         location?: string,
         address?: string,
         website: string,
+        sqft?: string,
+        description?: string,
+        addressHyper?: string,
     }
 }
 
@@ -86,7 +89,7 @@ export default function LinkModal(props: any) {
 
                     //Everything following is after a post to the database
 
-                    
+
                     handleClose()
                     //Added to database.
                     API.updateTreeHouse(props.club, data)
@@ -169,7 +172,7 @@ export default function LinkModal(props: any) {
         <div>
             <Button type="button" onClick={handleOpen} variant="outlined" color="secondary">
                 Add Tree House
-      </Button>
+             </Button>
             <Modal
                 open={open}
                 onClose={handleClose}

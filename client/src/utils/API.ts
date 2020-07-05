@@ -32,7 +32,9 @@ interface ITreeHouseData {
    location?: string,
    address?: string,
    website: string,
-   // description: string,
+   description?: string,
+   sqft?: string,
+   addressHyper?: string
 }
 
 
@@ -53,7 +55,7 @@ export default {
    getTreeHouses: (id: string) =>
       axios.get('/tree/treeHouses/all/' + id),
    deleteTreeHouse: (selector: { id: string, houseId: string }) =>
-      axios.delete('/tree/treeHouses/' + selector.id, selector),
+      axios.put('/tree/treeHouses/delete/' + selector.id, selector),
    updateTreeHouse: (id: string, data: ITreeHouseData) =>
       axios.put('/tree/treeHouses/' + id, data),
    // sendFeed: (data) =>

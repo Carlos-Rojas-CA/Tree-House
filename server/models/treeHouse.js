@@ -22,6 +22,7 @@ const TreeHouseSchema = new mongoose.Schema({
     address: String,
     contact: String,
     sqft: String,
+    addressHyper: String,
     comments: [{
       user: {
         type: Schema.Types.ObjectId,

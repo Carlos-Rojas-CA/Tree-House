@@ -33,13 +33,13 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   create: function (req, res) {
-    console.log(req.body)
+    // console.log(req.body)
     db.TreeHouse
       .create(req.body)
       .then(({ _id }) => db.User.findOneAndUpdate({ _id: req.body.controller }, { $push: { treeHouses: _id } }, { new: true }))
       .then(dbUser => {
         res.json(dbUser);
-        console.log("I got here 40")
+        // console.log("I got here 40")
       })
       .catch(err => {
         res.json(err);
@@ -53,6 +53,7 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   remove: function (req, res) {
+    // console.log(req.body)
     db.TreeHouse
       .updateOne(
         {_id: req.body.id},

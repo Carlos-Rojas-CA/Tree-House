@@ -154,9 +154,10 @@ function Dashboard(props: any): any {
                     {
                         treeHouses === []
                         ?null
-                        :treeHouses.map((treeHouse: any) =>
-                            <Grid item xs={6} sm={6} md={4}>
-                                <HouseCard treeHouse={treeHouse} />
+                        :treeHouses.map((treeHouse: any, index:number) =>
+                            <Grid item xs={6} sm={6} md={4} key={index}>
+                                <HouseCard treeHouse={treeHouse} addedLink={addedLink} setAddedLink={setAddedLink} club={club} />
+                                
                             </Grid>
                         )
                     }

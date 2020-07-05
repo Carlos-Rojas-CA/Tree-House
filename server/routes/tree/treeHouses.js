@@ -20,5 +20,9 @@ router
   .route("/all/:id")
   .get(treeHousesController.find)
 
+router
+  .route("/delete/:id")
+  .put(treeHousesController.remove)
+
 
 module.exports = router;
