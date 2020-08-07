@@ -70,7 +70,7 @@ async function craigslist(brower, page, url) {
             description: infoData.description,
             addressHyper: infoData.addressHyper,
         }
-        // console.log(craigslistData)
+        console.log(craigslistData)
         return craigslistData
     } else {             //Else statement if there are images.
         const src = await el.getProperty('src')
@@ -114,7 +114,7 @@ async function craigslist(brower, page, url) {
             description: infoData.description,
             addressHyper: infoData.addressHyper,
         }
-        // console.log(craigslistData)
+        console.log(craigslistData)
         return craigslistData
     }
 
@@ -196,7 +196,7 @@ async function craigslistTextData(page) {
         const descriptEl = await el12.getProperty('textContent')
         description = await descriptEl.jsonValue();
         description = description.split('QR Code Link to This Post')[1].trim()
-        descritption = description.split('Search Keywords:')[0].trim()
+        //descritption = description.split('Search Keywords:')[0].trim()
     }
 
     // console.log("here 186")
@@ -224,7 +224,7 @@ async function craigslistTextData(page) {
 module.exports = scrapeData
 //  scrapeData;
 
-// scrapeData("https://sandiego.craigslist.org/nsd/apa/d/escondido-top-floor-one-bedroom/7138810225.html")
+// scrapeData("https://sandiego.craigslist.org/esd/apa/d/el-cajon-new-water-heater-stay-cool/7172903282.html")
 
 // scrapeData('https://sandiego.craigslist.org/csd/apa/d/del-mar-cozy-house-4br2bath-in/7147529248.html')
 

@@ -90,10 +90,10 @@ function SignUp(props: any): any {
                 <Grid container spacing={1}>
                 <Grid item xs={12} sm={12} md={12} >
                 <div style={{
-                            backgroundColor: "#fcf9f0", 
+                            backgroundColor: "#98c1da", 
                             padding: "10px",
                             borderRadius: "10px",
-                            border: "2px solid #44d362",
+                            // border: "2px solid #44d362",
                             marginTop: "10px"}}>
                     <form className={classes.form} onSubmit={processForm} noValidate>
                         
@@ -106,6 +106,7 @@ function SignUp(props: any): any {
                                 fullWidth
                                 id="name"
                                 label="Name"
+                                color="secondary"
                                 onChange={(event) => { updateField(event) }}
                                 autoFocus
                             />
@@ -123,6 +124,7 @@ function SignUp(props: any): any {
                                 margin="normal"
                                 id="email"
                                 label="Email Address"
+                                color="secondary"
                                 onChange={(event) => { setUser({ ...user, email: event.target.value.trim().toLowerCase() }) }}
                                 name="email"
                                 autoComplete="email"
@@ -142,6 +144,7 @@ function SignUp(props: any): any {
                                 name="password"
                                 label="Password"
                                 type="password"
+                                color="secondary"
                                 onChange={(event) => { updateField(event) }}
                                 id="password"
                                 autoComplete="current-password"
@@ -162,15 +165,11 @@ function SignUp(props: any): any {
                             Sign Up
                         </Button>
                     </form>
-                    <Typography style={{paddingTop:"10px"}} color="primary" variant="body1">Already have an account? <a href="/signin">Sign In!</a></Typography>
+                    <Typography style={{paddingTop:"10px"}} color="secondary" variant="body1">Already have an account? <a href="/signin">Sign In!</a></Typography>
                     </div>
                     </Grid>
                 </Grid>
             </Container>
-            <h1>SignUp</h1>
-            <p> {user.name} </p>
-            <p> {user.email} </p>
-            <p> {user.password} </p>
         </ThemeProvider>
 
 

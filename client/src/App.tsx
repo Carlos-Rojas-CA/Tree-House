@@ -65,7 +65,7 @@ function App() {
               <PrivateRoute exact path="/dashboard" component={() => <Dashboard toggleAuthStatus={toggleAuthStatus} />} />
 
             </Switch>
-            <img src={logo} className="App-logo" alt="logo" />
+            {/* <img src={logo} className="App-logo" alt="logo" />
             <p>
               Edit <code>src/App.tsx</code> and save to reload.
         </p>
@@ -76,7 +76,7 @@ function App() {
               rel="noopener noreferrer"
             >
               Learn React
-        </a>
+        </a> */}
           </header>
         </div>
       </Router>

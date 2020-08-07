@@ -66,10 +66,10 @@ function SignIn(props: any): any {
                     </Grid>
                     <Grid item xs={12} sm={12} md={6} >
                         <div style={{
-                            backgroundColor: "#fcf9f0", 
+                            backgroundColor: "#98c1da", 
                             padding: "10px",
                             borderRadius: "10px",
-                            border: "2px solid #44d362",
+                            // border: "2px solid #44d362",
                             marginTop: "10px"}}>
                         <form onSubmit={processForm} noValidate>
                             <TextField
@@ -78,6 +78,7 @@ function SignIn(props: any): any {
                                 required
                                 fullWidth
                                 id="email"
+                                color="secondary"
                                 onChange={(event) => { setUser({ ...user, email: event.target.value.trim().toLowerCase() }) }}
                                 // errorText={error.email}
                                 label="Email Address"
@@ -93,6 +94,7 @@ function SignIn(props: any): any {
                                 name="password"
                                 label="Password"
                                 type="password"
+                                color="secondary"
                                 onChange={(event) => { updateField(event) }}
                                 id="password"
                                 autoComplete="current-password"
@@ -107,13 +109,13 @@ function SignIn(props: any): any {
                             Sign In
                         </Button>
                         </form>
-                        <Typography style={{paddingTop:"10px"}} color="primary" variant="body1">New to Tree house? <a href="/signup">Sign Up!</a></Typography>
+                        <Typography style={{paddingTop:"10px"}} color="secondary" variant="body1">New to Tree house? <a href="/signup">Sign Up!</a></Typography>
                         
                         </div>
                     </Grid>
 
                 </Grid>
-                <h1>SignIn</h1>
+                {/* <h1>SignIn</h1> */}
             </Container>
         </ThemeProvider>
 

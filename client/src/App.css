@@ -1,6 +1,8 @@
 .App {
   text-align: center;
-  background-image: url(./assets/leaves.jpg);
+  background-color: #D8F2FF;
+  min-height: 100vh;
+  /* background-image: url(./assets/leaves.jpg); */
   background-repeat: repeat;
 }
 
@@ -18,7 +20,7 @@
 .App-header {
   /* background-color: #ae7c59; */
 
-  min-height: 100vh;
+  /* min-height: 100vh; */
   display: flex;
   flex-direction: column;
   align-items: center;
