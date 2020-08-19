@@ -101,8 +101,8 @@ const app = express();
 
 // connect to the database and load models
 // uses environmental variable for deployment (Heroku) or defaults to local config
-// const uri = process.env.MONGODB_URI || "mongodb://user:AppleTre3@ds011800.mlab.com:11800/heroku_0f45kwwd";
-const uri = process.env.MONGODB_URI || "mongodb://localhost/tree_house_db";
+const uri = process.env.MONGODB_URI || "mongodb://user:AppleTre3@ds011800.mlab.com:11800/heroku_0f45kwwd";
+// const uri = process.env.MONGODB_URI || "mongodb://localhost/tree_house_db";
 
 mongoose.connect(uri);
 // plug in the promise library:
