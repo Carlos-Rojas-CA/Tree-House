@@ -93,7 +93,7 @@ const routes = require('./server/routes')
 const config = require('./server/config');
 const logger = require('morgan')
 const mongoose = require('mongoose')
-
+const scrapeData = require('./scrapper')
 
 const PORT = process.env.PORT || 3001;
 const app = express();
