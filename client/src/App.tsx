@@ -58,10 +58,18 @@ function App() {
               <Route exact path='/error' component={() => (<Error toggleAuthStatus={toggleAuthStatus} />)} />
               <Route exact path='/' component={()=> (authenticated
                 ? <Redirect to="/dashboard" />
-                : <SignIn toggleAuthStatus={toggleAuthStatus} />)} >
+                : <SignIn toggleAuthStatus={toggleAuthStatus} /> )} >
               </Route>
-              <Route exact path='/signin' component={() => (<SignIn toggleAuthStatus={toggleAuthStatus} />)} />
-              <Route exact path='/signup' component={() => (<SignUp toggleAuthStatus={toggleAuthStatus} />)} />
+              <Route exact path='/signin' component={()=> (authenticated
+                ? <Redirect to="/dashboard" />
+                : <SignIn toggleAuthStatus={toggleAuthStatus} /> )} >
+              </Route>
+              {/* <Route exact path='/signin' component={() => (<SignIn toggleAuthStatus={toggleAuthStatus} />)} /> */}
+              <Route exact path='/signup' component={()=> (authenticated
+                ? <Redirect to="/dashboard" />
+                : <SignUp toggleAuthStatus={toggleAuthStatus} /> )} >
+              </Route>
+              {/* <Route exact path='/signup' component={() => (<SignUp toggleAuthStatus={toggleAuthStatus} />)} /> */}
               <PrivateRoute exact path="/dashboard" component={() => <Dashboard toggleAuthStatus={toggleAuthStatus} />} />
 
             </Switch>

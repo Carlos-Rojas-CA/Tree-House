@@ -148,8 +148,8 @@ export default function MenuAppBar(props: any) {
       {
         props.authenticated
         ? (<div>
-          <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-          <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+          {/* <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+          <MenuItem onClick={handleMenuClose}>My account</MenuItem> */}
           <MenuItem onClick={handleMenuCloseLogout}>Logout</MenuItem>
           </div>)
         : (<div>
@@ -215,9 +215,11 @@ export default function MenuAppBar(props: any) {
             <MenuIcon />
           </IconButton>
           <div className={classes.grow} />
+          <a href="/" style={{textDecoration: "none"}} >
           <Typography className={classes.title} variant="h3" align="center" color="secondary" noWrap>
-            Tree House Explorer
+            Tree House Club
           </Typography>
+          </a>
           {/* <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
