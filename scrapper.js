@@ -224,7 +224,7 @@ async function craigslistTextData(page) {
 module.exports = scrapeData
 //  scrapeData;
 
-// scrapeData("https://sandiego.craigslist.org/esd/apa/d/el-cajon-new-water-heater-stay-cool/7172903282.html")
+// scrapeData("https://sandiego.craigslist.org/csd/apa/d/san-diego-modern-living-in-the-heart-of/7180117794.html")
 
 // scrapeData('https://sandiego.craigslist.org/csd/apa/d/del-mar-cozy-house-4br2bath-in/7147529248.html')
 
