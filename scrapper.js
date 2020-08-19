@@ -10,7 +10,8 @@ const $ = require("jquery");
 //Hopefully: Use google maps to consolidate area listing.
 
 async function scrapeData(url) {
-    const brower = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']});
+    const brower = await puppeteer.launch({
+        args: ['--no-sandbox', '--disable-setuid-sandbox']});
     const page = await brower.newPage();
     await page.goto(url);
     const content = await page.content();
