@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import Alert from '@material-ui/lab/Alert'
 import { makeStyles, ThemeProvider, Theme, createStyles } from '@material-ui/core/styles';
 import { useHistory } from "react-router-dom";
 import theme from '../utils/themeUtil';
@@ -29,7 +30,8 @@ function SignIn(props: any): any {
     let history = useHistory();
     const classes = useStyles();
     const [user, setUser] = useState<IUser>({ email: '', password: '' })
-    const [error, setError] = useState({})
+    const [error, setError] = useState({email: '', password: ''})
+    const [message, setMessage] = useState('')
 
 
     const updateField = (e: any) => {
@@ -47,10 +49,18 @@ function SignIn(props: any): any {
                 props.toggleAuthStatus()
                 history.push("/dashboard")
             })
-            .catch((errors: any) => {
-                setError(errors.response.data.errors)
-                console.log(errors.response)
+            .catch(({ response }: any) => {
+                if (response.data.errors) {
+                    setError(response.data.errors)
+                }
+                setMessage(response.data.message)
+
+                console.log(response)
             })
+        // .catch((errors: any) => {
+        //     setError(errors.response.data.errors)
+        //     console.log(errors.response)
+        // })
     }
 
 
@@ -66,51 +76,68 @@ function SignIn(props: any): any {
                     </Grid>
                     <Grid item xs={12} sm={12} md={6} >
                         <div style={{
-                            backgroundColor: "#98c1da", 
+                            backgroundColor: "#98c1da",
                             padding: "10px",
                             borderRadius: "10px",
                             // border: "2px solid #44d362",
-                            marginTop: "10px"}}>
-                        <form onSubmit={processForm} noValidate>
-                            <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="email"
-                                color="secondary"
-                                onChange={(event) => { setUser({ ...user, email: event.target.value.trim().toLowerCase() }) }}
-                                // errorText={error.email}
-                                label="Email Address"
-                                name="email"
-                                autoComplete="email"
-                                autoFocus
-                            />
-                            <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="password"
-                                label="Password"
-                                type="password"
-                                color="secondary"
-                                onChange={(event) => { updateField(event) }}
-                                id="password"
-                                autoComplete="current-password"
-                            />
-                            <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            
-                        >
-                            Sign In
+                            marginTop: "10px"
+                        }}>
+                            <form onSubmit={processForm} noValidate>
+                                <TextField
+                                    variant="outlined"
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    id="email"
+                                    color="secondary"
+                                    onChange={(event) => { setUser({ ...user, email: event.target.value.trim().toLowerCase() }) }}
+                                    // errorText={error.email}
+                                    label="Email Address"
+                                    name="email"
+                                    autoComplete="email"
+                                    autoFocus
+                                />
+                                {
+                                    message === 'Incorrect email or password'
+                                        ? <Alert severity="error">{message}</Alert>
+                                        : (error.email
+                                            ? <Alert severity="error">{error.email}</Alert>
+                                            : null)
+
+                                }
+                                <TextField
+                                    variant="outlined"
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    name="password"
+                                    label="Password"
+                                    type="password"
+                                    color="secondary"
+                                    onChange={(event) => { updateField(event) }}
+                                    id="password"
+                                    autoComplete="current-password"
+                                />
+                                {
+                                    message === 'Incorrect email or password'
+                                        ? null
+                                        : (error.password
+                                            ? <Alert severity="error">{error.password}</Alert>
+                                            : null)
+
+                                }
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    color="primary"
+
+                                >
+                                    Sign In
                         </Button>
-                        </form>
-                        <Typography style={{paddingTop:"10px"}} color="secondary" variant="body1">New to Tree house? <a href="/signup">Sign Up!</a></Typography>
-                        
+                            </form>
+                            <Typography style={{ paddingTop: "10px" }} color="secondary" variant="body1">New to Tree house? <a href="/signup">Sign Up!</a></Typography>
+
                         </div>
                     </Grid>
 

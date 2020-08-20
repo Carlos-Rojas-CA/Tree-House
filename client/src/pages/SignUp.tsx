@@ -11,6 +11,7 @@ import API from '../utils/API'
 //import Alert from '@material-ui/lab/Alert'
 //import classes from '*.module.css';
 import Button from '@material-ui/core/Button';
+import Alert from '@material-ui/lab/Alert'
 
 interface IUser {
     name: string;
@@ -41,7 +42,8 @@ const useStyles = makeStyles(theme => ({
 function SignUp(props: any): any {
     let history = useHistory()
     const [user, setUser] = useState<IUser>({ name: '', email: '', password: '' })
-    const [error, setError] = useState({})
+    const [error, setError] = useState({email: '', password: '', name: ''})
+    // const [message, setMessage] = useState('')
     const classes = useStyles();
 
     const updateField = (e: any) => {
@@ -110,11 +112,11 @@ function SignUp(props: any): any {
                                 onChange={(event) => { updateField(event) }}
                                 autoFocus
                             />
-                            {/* {
-                                error.name
+                            {
+                                error.name === 'Please provide your name.'
                                     ? <Alert severity="error">{error.name}</Alert>
                                     : null
-                            } */}
+                            }
                         
                         
                             <TextField
@@ -130,11 +132,11 @@ function SignUp(props: any): any {
                                 autoComplete="email"
                             />
                         
-                        {/* {
-                            error.email
+                        {
+                            error.email === 'Please provide a correct email address.' || error.email === 'This email is already taken.'
                                 ? <Alert severity="error">{error.email}</Alert>
                                 : null
-                        } */}
+                        }
                         
                             <TextField
                                 variant="outlined"
@@ -150,11 +152,11 @@ function SignUp(props: any): any {
                                 autoComplete="current-password"
                             />
                         
-                        {/* {
-                            error.password
+                        {
+                            error.password === 'Password must have at least 8 characters.'
                                 ? <Alert severity="error">{error.password}</Alert>
                                 : null
-                        } */}
+                        }
                         <Button
                             type="submit"
                             fullWidth
