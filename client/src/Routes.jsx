@@ -28,50 +28,91 @@
 
 //   return <Route {...rest} render={renderFn(component)} />
 // }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// import React, { Component } from 'react';
+// import {
+//     Route, 
+//     Redirect,
+//     RouteProps,
+//     // RouteComponent,
+//     RouteComponentProps
+// } from "react-router-dom";
+// import Auth from './utils/Auth';
 
-import React, { Component } from 'react';
-import {
-    Route, 
-    Redirect,
-    RouteProps,
-    // RouteComponent,
-    RouteComponentProps
-} from "react-router-dom";
-import Auth from './utils/Auth';
+// type RouteComponent = React.StatelessComponent<RouteComponentProps<{}>> | React.ComponentClass<any>
 
-type RouteComponent = React.StatelessComponent<RouteComponentProps<{}>> | React.ComponentClass<any>
+// // interface PrivateRouteProps extends RouteProps {
+// //     isAuthenticated: boolean;
+// // }
+// const auth = true
 
-// interface PrivateRouteProps extends RouteProps {
-//     isAuthenticated: boolean;
+// const PrivateRoute: React.StatelessComponent<RouteProps> = ({component, ...rest}) => {
+//   const renderFn = (Component?: any) => (props: RouteProps) => {
+//     if (!Component) {
+//       return null
+//     }
+
+//     if (Auth.isUserAuthenticated()) {
+//       return <Component {...props} />
+//     }
+
+//     const redirectProps = {
+//       to: {
+//         pathname: "/error",
+//         state: {from: props.location},
+//       },
+//     }
+
+//     return <Redirect {...redirectProps} />
+//   }
+
+//   return <Route {...rest} render={renderFn(component)} />
 // }
-const auth = true
 
-const PrivateRoute: React.StatelessComponent<RouteProps> = ({component, ...rest}) => {
-  const renderFn = (Component?: any) => (props: RouteProps) => {
-    if (!Component) {
-      return null
-    }
+// export { PrivateRoute };
 
-    if (Auth.isUserAuthenticated()) {
-      return <Component {...props} />
-    }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    const redirectProps = {
-      to: {
-        pathname: "/error",
-        state: {from: props.location},
-      },
-    }
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import React from "react";
 
-    return <Redirect {...redirectProps} />
-  }
+import Auth from './utils/Auth';
+import { Route, Redirect } from 'react-router-dom';
 
-  return <Route {...rest} render={renderFn(component)} />
-}
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route {...rest} render={props => (
+    Auth.isUserAuthenticated() ? (
+      <Component {...props} {...rest} />
+    ) : (
+      <Redirect to={{
+        pathname: '/',
+        state: { from: props.location }
+      }}/>
+    )
+  )}/>
+)
 
-export { PrivateRoute };
+const LoggedOutRoute = ({ component: Component, ...rest }) => (
+  <Route {...rest} render={props => (
+    Auth.isUserAuthenticated() ? (
+      <Redirect to={{
+        pathname: '/',
+        state: { from: props.location }
+      }}/>
+    ) : (
+      <Component {...props} {...rest} />
+    )
+  )}/>
+)
 
+// const PropsRoute = ({ component: Component, ...rest }) => (
+//   <Route {...rest} render={props => (
+//     <Component {...props} {...rest} />
+//   )}/>
+// )
 
+export { PrivateRoute, LoggedOutRoute };
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 // import React, { Component } from 'react';
