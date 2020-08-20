@@ -55,22 +55,22 @@ function App() {
             {/* <br/> */}
             {/* <Link to='/signup'>Signup</Link> */}
             <Switch>
-              <Route exact path='/error' component={() => (<Error toggleAuthStatus={toggleAuthStatus} />)} />
+              <Route path='/error' component={() => (<Error toggleAuthStatus={toggleAuthStatus} />)} />
               <Route exact path='/' component={()=> (authenticated
                 ? <Redirect to="/dashboard" />
                 : <SignIn toggleAuthStatus={toggleAuthStatus} /> )} >
               </Route>
-              <Route exact path='/signin' component={()=> (authenticated
+              <Route path='/signin' component={()=> (authenticated
                 ? <Redirect to="/dashboard" />
                 : <SignIn toggleAuthStatus={toggleAuthStatus} /> )} >
               </Route>
               {/* <Route exact path='/signin' component={() => (<SignIn toggleAuthStatus={toggleAuthStatus} />)} /> */}
-              <Route exact path='/signup' component={()=> (authenticated
+              <Route path='/signup' component={()=> (authenticated
                 ? <Redirect to="/dashboard" />
                 : <SignUp toggleAuthStatus={toggleAuthStatus} /> )} >
               </Route>
               {/* <Route exact path='/signup' component={() => (<SignUp toggleAuthStatus={toggleAuthStatus} />)} /> */}
-              <PrivateRoute exact path="/dashboard" component={() => <Dashboard toggleAuthStatus={toggleAuthStatus} />} />
+              <PrivateRoute path="/dashboard" component={() => <Dashboard toggleAuthStatus={toggleAuthStatus} />} />
 
             </Switch>
             {/* <img src={logo} className="App-logo" alt="logo" />
