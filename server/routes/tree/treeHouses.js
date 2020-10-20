@@ -2,7 +2,7 @@
 const router = require('express').Router();
 // const router = new express.Router();
 const treeHousesController = require("../../controllers/treeHouseController");
-const userController = require("../../controllers/usersController")
+// const userController = require("../../controllers/usersController")
 
 // Matches with "/tree/treeHouses"
 router.route("/club/")

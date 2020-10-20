@@ -8,6 +8,7 @@ module.exports = {
     db.TreeHouse
       .find({ users: req.params.id})
       // .populate("treeHouse")
+      .populate('users', 'name')
       .sort({ date: 1 })
       .then(dbTreeHouses => {
         res.json(dbTreeHouses)

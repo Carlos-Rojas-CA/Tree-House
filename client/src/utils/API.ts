@@ -58,6 +58,8 @@ export default {
       axios.put('/tree/treeHouses/delete/' + selector.id, selector),
    updateTreeHouse: (id: string, data: ITreeHouseData) =>
       axios.put('/tree/treeHouses/' + id, data),
+   getUserName: (id:string) =>
+      axios.get('/tree/users/' + id),
    // sendFeed: (data) =>
    //    axios.post('/tree/feedback', data),
    // getFeed: (id) => {

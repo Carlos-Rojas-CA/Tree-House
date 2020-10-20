@@ -143,9 +143,9 @@ app.post('/scrape', async(req, res) => {
   res.send(data)
   // res.send(req.body.url)
 } )
-// app.get("/apple", (req, res) => {
-//   res.json("You have my apples!")
-// })
+app.get("/apple", (req, res) => {
+  res.json("You have my apples!")
+})
 
 // routes
 

@@ -36,5 +36,27 @@ module.exports = {
       .then(dbModel => dbModel.remove())
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
-  }
+  },
+  findByIdTreeHouse: function(req, res) {
+    db.User
+      .findById(req.params.id)
+      // .populate("treeHouses")
+      // .populate("requests")
+      .sort({ date: 1})
+      .then(dbModel => res.json(dbModel.name))
+      .catch(err => res.status(422).json(err));
+  },
+  updateTreeHouse: function(req, res) {
+    db.User
+      .findOneAndUpdate({ _id: req.params.id }, req.body)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+  removeTreeHouse: function(req, res) {
+    db.User
+      .findById({ _id: req.params.id })
+      .then(dbModel => dbModel.remove())
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
 };
