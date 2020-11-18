@@ -13,6 +13,7 @@ import LinkModal from '../components/modal/linkModal'
 import ClubModal from '../components/modal/club-modal'
 import Avatar from '@material-ui/core/Avatar';
 import HouseCard from '../components/card/houseCard'
+import RefreshIcon from '@material-ui/icons/Refresh';
 // import TextField from '@material-ui/core/TextField';
 
 interface IScrapeData {
@@ -152,6 +153,41 @@ function Dashboard(props: any): any {
             })
     }
 
+    const refreshCards = () => {
+        console.log("click")
+        treeHouses.forEach((house: any) => {
+            API.scrape(house.website)
+                .then(({ data }: any) => {
+                    console.log("before")
+                    console.log(data)
+                    console.log("after")
+                    if( data.error === "Deleted") {
+                        console.log(house._id, club, club._id)
+                        deleteThis(house._id)
+                    }
+                })
+
+        })
+        setAddedLink(addedLink * -1) //This will cause the Dashboard to refresh.
+    }
+
+    const deleteThis = (id: string): any => {
+        console.log("Delete this")
+        console.log(id)
+        const selector = {
+          id: club._id,
+          houseId: id
+        }
+        console.log(selector)
+        API.deleteTreeHouse(selector)
+          .then((res: any) => {
+            // Do nothing
+          })
+          .catch((err: any) => {
+            console.log(err)
+          })
+      }
+
     return (
         <ThemeProvider theme={theme}>
             <Container maxWidth="md">
@@ -167,7 +203,10 @@ function Dashboard(props: any): any {
                             ? <h1>{`Club ${club.name}`}</h1>
                             : <h1>Dashboard</h1>
                     }
-                    <Grid container spacing={1} justify="center" alignItems="center">
+
+                    {/* ~~~~ This is for avatar icons for people in the group. To be finished */}
+
+                    {/* <Grid container spacing={1} justify="center" alignItems="center">   
                         <Grid item xs={3} sm={3} md={1}>
                             <Avatar className={classes.pink}> G </Avatar>
                         </Grid>
@@ -180,7 +219,7 @@ function Dashboard(props: any): any {
                             )
 
                         }
-                    </Grid>
+                    </Grid> */}
                     {
                         club.name != ""
                             ? <LinkModal setAddedLink={setAddedLink} addedLink={addedLink} club={club._id} />
@@ -189,10 +228,7 @@ function Dashboard(props: any): any {
                                 <TextField id="standard-basic" label="Name" color="secondary" onChange={(event) => { setGrove(event.target.value) }} />
                                 <Button
                                     type="submit"
-
-                                    // fullWidth={true}
                                     variant="contained"
-                                    // color="primary"
                                     style={{
                                         backgroundColor: "#D8F2FF",
                                         margin: "10px",
@@ -200,8 +236,8 @@ function Dashboard(props: any): any {
                                     }}
                                     className={classes.submit}
                                 >
-                                    +
-                        </Button>
+
+                                </Button>
 
                             </form>
                     }
@@ -210,9 +246,25 @@ function Dashboard(props: any): any {
 
 
                 </div>
-                <br></br>
 
-                {/* This is where all the house cards get generated. */}
+
+                {
+                    club.name === ""
+                        ? null
+                        : <Button variant="contained" onClick={refreshCards}
+                            style={{
+                                backgroundColor: "#98c1da",
+                                margin: "10px",
+                                padding: "10px",
+                                color: "white"
+                            }}>
+                            Refresh Cards <RefreshIcon fontSize="large" />
+                        </Button>
+                }
+
+                <br />
+
+                {/* ~~~~~~This is where all the house cards get generated. */}
                 <Grid container spacing={2}>
                     {
                         treeHouses === []

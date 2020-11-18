@@ -101,7 +101,7 @@ const app = express();
 
 // connect to the database and load models
 // uses environmental variable for deployment (Heroku) or defaults to local config
-const uri = process.env.MONGODB_URI || "mongodb://user:AppleTre3@ds011800.mlab.com:11800/heroku_0f45kwwd";
+const uri = process.env.MONGODB_URI || "mongodb://user:AppleTre3@cluster-0f45kwwd-shard-00-00.tetzg.mongodb.net:27017,cluster-0f45kwwd-shard-00-01.tetzg.mongodb.net:27017,cluster-0f45kwwd-shard-00-02.tetzg.mongodb.net:27017/heroku_0f45kwwd?ssl=true&replicaSet=atlas-ktu3ca-shard-0&authSource=admin&retryWrites=true&w=majority";
 // const uri = process.env.MONGODB_URI || "mongodb://localhost/tree_house_db";
 
 mongoose.connect(uri);

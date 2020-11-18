@@ -23,6 +23,7 @@ interface IScrapeData {
         sqft?: string,
         description?: string,
         addressHyper?: string,
+        error?: string,
     }
 }
 
@@ -92,11 +93,13 @@ export default function LinkModal(props: any) {
 
                     handleClose()
                     //Added to database.
-                    API.updateTreeHouse(props.club, data)
-                        .then((results: any) => {
-                            props.setAddedLink(props.addedLink * -1) //This will cause the Dashboard to refresh.
-                            console.log(results)
-                        })
+                    if(data.error != "Deleted") {
+                        API.updateTreeHouse(props.club, data)
+                            .then((results: any) => {
+                                props.setAddedLink(props.addedLink * -1) //This will cause the Dashboard to refresh.
+                                console.log(results)
+                            })
+                    }
 
                     //create a new card function
 

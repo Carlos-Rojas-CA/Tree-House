@@ -38,17 +38,18 @@ async function scrapeData(url) {
 //Checks if page has been deleted
 
 async function craigslist(brower, page, url) {
-    const [deleted] = await page.$x('/html/body/section/section/div/div[2]/h2')
+    const [deleted] = await page.$x('/html/body/div/section/div/h1')
     if (deleted != null) {
         const del = await deleted.getProperty('textContent')
         const delTxt = await del.jsonValue();
-        if (delTxt.includes('deleted')) {
+        if (delTxt.includes('found')) {
             const error = { error: "Deleted" }
             brower.close();
             console.log(error)
             return error
         }
     }
+
 
     //This gets the first image from craigslist. 
     const [el] = await page.$x('/html/body/section/section/section/figure/div[1]/div/div/div[1]/img')
@@ -224,6 +225,8 @@ async function craigslistTextData(page) {
 
 module.exports = scrapeData
 //  scrapeData;
+
+// scrapeData("https://sandiego.craigslist.org/csd/apa/d/san-diego-3-bedroom-home-in-bay-ho/7181109569.html")
 
 // scrapeData("https://sandiego.craigslist.org/csd/apa/d/san-diego-modern-living-in-the-heart-of/7180117794.html")
 
