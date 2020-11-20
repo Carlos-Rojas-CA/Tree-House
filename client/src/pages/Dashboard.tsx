@@ -104,6 +104,7 @@ function Dashboard(props: any): any {
     const [club, setClub] = useState<IClub>({ _id: "", name: "", houses: [], pending: [], users: [] })
     const [grove, setGrove] = useState("")
     const [treeHouses, setTreeHouses] = useState([])
+    const [refreshStat, setRefreshStat] = useState("Refresh Cards")
 
 
     useEffect(() => {
@@ -157,25 +158,27 @@ function Dashboard(props: any): any {
         
     })
 
-    const refreshCards = () => {
-        console.log("click")
-        treeHouses.forEach(async (house: any) => {
-            await API.scrape(house.website)
-                .then(({ data }: any) => {
+    const refreshCards = async () => {
+        console.log("click", treeHouses.length)
+        var treeHouses123: any = treeHouses
+        for (var i=0; i< treeHouses.length; i++) {
+            setRefreshStat(`Refreshing ${i+1} of ${treeHouses.length}`)
+            await API.scrape(treeHouses123[i].website)
+                .then(async ({ data }: any) => {
                     console.log("before")
-                    console.log(data.error, house.website)
+                    await console.log(data.error, treeHouses123[i].website)
                     console.log("after")
                     if( data.error === "Deleted") {
                         console.log("deleting")
-                        console.log(house._id, club, club._id)
-                        deleteThis(house._id)
+                        console.log(treeHouses123[i]._id, club, club._id)
+                        deleteThis(treeHouses123[i]._id)
                     }
                 })
                 .catch((err:any) => {
                     console.log("errors: ", err)
                 })
-
-        })
+        }
+        setRefreshStat("Refresh Cards")
         setAddedLink(addedLink * -1) //This will cause the Dashboard to refresh.
     }
 
@@ -266,7 +269,7 @@ function Dashboard(props: any): any {
                                 padding: "10px",
                                 color: "white"
                             }}>
-                            Refresh Cards <RefreshIcon fontSize="large" />
+                            {refreshStat} <RefreshIcon fontSize="large" />
                         </Button>
                 }
 
