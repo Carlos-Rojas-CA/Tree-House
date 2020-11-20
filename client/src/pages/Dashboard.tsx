@@ -153,18 +153,26 @@ function Dashboard(props: any): any {
             })
     }
 
+    const scrape = new Promise ((resolve, reject) => {
+        
+    })
+
     const refreshCards = () => {
         console.log("click")
-        treeHouses.forEach((house: any) => {
-            API.scrape(house.website)
+        treeHouses.forEach(async (house: any) => {
+            await API.scrape(house.website)
                 .then(({ data }: any) => {
                     console.log("before")
-                    console.log(data)
+                    console.log(data.error, house.website)
                     console.log("after")
                     if( data.error === "Deleted") {
+                        console.log("deleting")
                         console.log(house._id, club, club._id)
                         deleteThis(house._id)
                     }
+                })
+                .catch((err:any) => {
+                    console.log("errors: ", err)
                 })
 
         })

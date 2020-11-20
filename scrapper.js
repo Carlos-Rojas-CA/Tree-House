@@ -11,7 +11,8 @@ const $ = require("jquery");
 
 async function scrapeData(url) {
     const brower = await puppeteer.launch({
-        args: ['--no-sandbox', '--disable-setuid-sandbox']});
+        args: ['--no-sandbox', '--disable-setuid-sandbox']
+    });
     const page = await brower.newPage();
     await page.goto(url);
     const content = await page.content();
@@ -38,17 +39,40 @@ async function scrapeData(url) {
 //Checks if page has been deleted
 
 async function craigslist(brower, page, url) {
+
+
+    // #has_been_removed
+    const el10 = await page.$('#userbody > div.removed > h2')
+    if (el10 != null) {
+        const delTxt2 = await page.evaluate(body => body.innerHTML, el10);
+        if (delTxt2.includes('deleted')) {
+            const error = { error: "Deleted" }
+            brower.close();
+            // console.log(error)
+            // console.log("`````````here`````````")
+            // console.log("stop here")
+            return error
+
+        }
+    }
+
     const [deleted] = await page.$x('/html/body/div/section/div/h1')
+    console.log("start")
     if (deleted != null) {
+        console.log("start delete")
         const del = await deleted.getProperty('textContent')
         const delTxt = await del.jsonValue();
         if (delTxt.includes('found')) {
             const error = { error: "Deleted" }
             brower.close();
-            console.log(error)
+            // console.log(error)
+            // console.log("`````````here`````````")
+            // console.log("stop here")
             return error
+
         }
     }
+
 
 
     //This gets the first image from craigslist. 
@@ -85,7 +109,7 @@ async function craigslist(brower, page, url) {
         const numbTxt = await numb.jsonValue();
         const numberImgs = parseInt(numbTxt.split("of ").pop())
         const selector = "a[id^='2_thumb_']"
-        
+
 
         //document.querySelector("#postingbody")
 
@@ -217,7 +241,7 @@ async function craigslistTextData(page) {
     // }
 
 
-    return { title: titleTxt, price: priceTxt, bed: bed, bath: bath, address: address, location: location, addressHyper: addressHyper, sqft: sqftText, description: description}
+    return { title: titleTxt, price: priceTxt, bed: bed, bath: bath, address: address, location: location, addressHyper: addressHyper, sqft: sqftText, description: description }
 }
 
 // router.route("/")
@@ -226,7 +250,7 @@ async function craigslistTextData(page) {
 module.exports = scrapeData
 //  scrapeData;
 
-// scrapeData("https://sandiego.craigslist.org/csd/apa/d/san-diego-3-bedroom-home-in-bay-ho/7181109569.html")
+// scrapeData("https://sandiego.craigslist.org/csd/apa/d/san-diego-proper-design-smartly-priced/7232887666.html")
 
 // scrapeData("https://sandiego.craigslist.org/csd/apa/d/san-diego-modern-living-in-the-heart-of/7180117794.html")
 
