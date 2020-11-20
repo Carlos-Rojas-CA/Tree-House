@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) => {
 
 function SignIn(props: any): any {
     let history = useHistory();
-    const classes = useStyles();
+    // const classes = useStyles();
     const [user, setUser] = useState<IUser>({ email: '', password: '' })
     const [error, setError] = useState({email: '', password: ''})
     const [message, setMessage] = useState('')

@@ -29,7 +29,7 @@
 //   return <Route {...rest} render={renderFn(component)} />
 // }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-import React, { Component } from 'react';
+import React from 'react';
 import {
     Route, 
     Redirect,
@@ -44,7 +44,7 @@ type RouteComponent = React.StatelessComponent<RouteComponentProps<{}>> | React.
 // interface PrivateRouteProps extends RouteProps {
 //     isAuthenticated: boolean;
 // }
-const auth = true
+// const auth = true
 
 const PrivateRoute: React.StatelessComponent<RouteProps> = ({component, ...rest}) => {
   const renderFn = (Component?: any) => (props: RouteProps) => {

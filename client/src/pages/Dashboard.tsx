@@ -2,16 +2,16 @@ import React, { useState, useEffect } from 'react';
 import Container from '@material-ui/core/Container'
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles, ThemeProvider, Theme } from '@material-ui/core/styles';
-import { useHistory } from "react-router-dom";
+// import Typography from '@material-ui/core/Typography';
+import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
+// import { useHistory } from "react-router-dom";
 import theme from '../utils/themeUtil';
 import Auth from '../utils/Auth';
 import API from '../utils/API';
 import Button from '@material-ui/core/Button';
 import LinkModal from '../components/modal/linkModal'
-import ClubModal from '../components/modal/club-modal'
-import Avatar from '@material-ui/core/Avatar';
+// import ClubModal from '../components/modal/club-modal'
+// import Avatar from '@material-ui/core/Avatar';
 import HouseCard from '../components/card/houseCard'
 import RefreshIcon from '@material-ui/icons/Refresh';
 // import TextField from '@material-ui/core/TextField';
@@ -95,11 +95,11 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Dashboard(props: any): any {
-    let history = useHistory();
+    // let history = useHistory();
     const classes = useStyles();
-    const [webLink, setWebLink] = useState("")
+    // const [webLink, setWebLink] = useState("")
     const [addedLink, setAddedLink] = useState(1)
-    const [loadedLink, setLoadedLink] = useState(false)
+    // const [loadedLink, setLoadedLink] = useState(false)
     const [user, setUser] = useState({ _id: "", name: "", email: "", treeHouses: [""] })
     const [club, setClub] = useState<IClub>({ _id: "", name: "", houses: [], pending: [], users: [] })
     const [grove, setGrove] = useState("")
@@ -107,27 +107,25 @@ function Dashboard(props: any): any {
     const [refreshStat, setRefreshStat] = useState("Refresh Cards")
 
 
+    // THIS LOADS THE DASHBOARD ON LOAD.
     useEffect(() => {
-        // console.log("refresh")
-        // console.log(addedLink)
         API.dashboard(Auth.getToken())
             .then((res: any) => {
                 const userData: IUserData = res.data.user
                 setUser({
                     ...user, _id: userData._id, name: userData.name, email: userData.email, treeHouses: userData.treeHouses
                 })
+
                 API.getTreeHouses(userData._id)
                     .then((resd: any) => {
                         if (resd.data[0].name) {
                             setClub(resd.data[0])
                             setTreeHouses(resd.data[0].houses)
-                            console.log(resd.data[0])
-                            console.log(resd.data[0].users[0])
+
                         }
                     })
                     .catch((err: any) => {
-                        // console.log(userData._id)
-                        // console.log(err)
+                        console.log(err)
                     })
 
             })
@@ -136,42 +134,35 @@ function Dashboard(props: any): any {
             })
     }, [addedLink])
 
+
+    // CREATES A NEW TREE HOUSE CLUB OR GROVE... NEED TO COMMIT TO NAMING SCHEME
     const addTreeHouse = (e: any) => {
         e.preventDefault();
-        console.log(user)
-        // console.log(name)
         const house = {
             name: grove,
             controller: user._id,
-
             users: [user._id]
         }
         API.createTreeHouseClub(house)
             .then((res: any) => {
-                console.log("completed")
-                console.log(res)
-                setAddedLink(addedLink * -1)
+                setAddedLink(addedLink * -1)    // REFRESHES PAGE
             })
     }
 
-    const scrape = new Promise ((resolve, reject) => {
-        
-    })
-
-    const refreshCards = async () => {
-        console.log("click", treeHouses.length)
-        var treeHouses123: any = treeHouses
-        for (var i=0; i< treeHouses.length; i++) {
+    // ASYNC FUNCTION TO GO THROUGH ALL THE TREEHOUSES TO CHECK IF THEY ARE STILL ACTIVE
+    const refreshCards = async () => {      
+        var treeHouses123: any = treeHouses     //HAD TO CREATE THIS BECAUSE TREEHOUSES DOESN'T HAVE A TREEHOUSES[i].WEBSITE
+        for (var i=0; i< treeHouses.length; i++) {      //LOOPS THROUGH ALL THE TREEHOUSES
             setRefreshStat(`Refreshing ${i+1} of ${treeHouses.length}`)
-            await API.scrape(treeHouses123[i].website)
+            await API.scrape(treeHouses123[i].website)      // THIS AWAIT IS SO THE REQUESTS ARE ONE AT A TIME.
                 .then(async ({ data }: any) => {
-                    console.log("before")
-                    await console.log(data.error, treeHouses123[i].website)
-                    console.log("after")
-                    if( data.error === "Deleted") {
-                        console.log("deleting")
-                        console.log(treeHouses123[i]._id, club, club._id)
-                        deleteThis(treeHouses123[i]._id)
+                    // console.log("before")
+                    // console.log(data.error, treeHouses123[i].website)
+                    // console.log("after")
+                    if( data.error === "Deleted") {     // DELETES INACTIVE CARDS/LISTINGS
+                        // console.log("deleting")
+                        // console.log(treeHouses123[i]._id, club, club._id)
+                        deleteThis(treeHouses123[i]._id)    
                     }
                 })
                 .catch((err:any) => {
@@ -182,6 +173,7 @@ function Dashboard(props: any): any {
         setAddedLink(addedLink * -1) //This will cause the Dashboard to refresh.
     }
 
+    // DELETES CARD
     const deleteThis = (id: string): any => {
         console.log("Delete this")
         console.log(id)
@@ -231,11 +223,13 @@ function Dashboard(props: any): any {
 
                         }
                     </Grid> */}
+
+                    {/* THIS IS GOING TO BE EITHER THE LINK MODAL TO CREATE TREE HOUSE CARDS OR THE FIELD TO CREATE A CLUB/GROVE */}
                     {
-                        club.name != ""
+                        club.name !== ""
                             ? <LinkModal setAddedLink={setAddedLink} addedLink={addedLink} club={club._id} />
                             : <form id="add-test" className={classes.form} onSubmit={addTreeHouse} noValidate>
-                                <p>Start a Grove</p>
+                                <p>Start a Club</p>
                                 <TextField id="standard-basic" label="Name" color="secondary" onChange={(event) => { setGrove(event.target.value) }} />
                                 <Button
                                     type="submit"
@@ -252,13 +246,8 @@ function Dashboard(props: any): any {
 
                             </form>
                     }
-                    {/* <br /> */}
-
-
-
                 </div>
-
-
+                {/* IF THERE IS NO CLUB NAME, DON'T RENDER THE REFRESH BUTTON */}
                 {
                     club.name === ""
                         ? null

@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import React, { useState} from 'react';
+// import ReactDOM from 'react-dom';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
+// import CardMedia from '@material-ui/core/CardMedia';
+// import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import ShareIcon from '@material-ui/icons/Share';
@@ -20,7 +20,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from 'react-responsive-carousel';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import API from '../../utils/API';
-import theme from '../../utils/themeUtil'
+// import theme from '../../utils/themeUtil'
 // import $ from "jquery";
 
 // import { ImageSearch } from '@material-ui/icons';
@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function HouseCard(props: any) {
   const classes = useStyles();
-  const [imgCount, setImgCount] = useState(3)
+  // const [imgCount, setImgCount] = useState(3)
   const [open, setOpen] = useState(false);
   const [liked, setLiked] = useState(false);
   const treeHouse = props.treeHouse
@@ -149,14 +149,14 @@ export default function HouseCard(props: any) {
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p" align='left' >
             {
-              treeHouse.sqft != ""
+              treeHouse.sqft !== ""
                 ? `- ${treeHouse.sqft} sqft`
                 : null
             }
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p" align='left' >
             {
-              treeHouse.address != ""
+              treeHouse.address !== ""
                 ? `- ${treeHouse.address}`
                 : null
             }
@@ -207,7 +207,7 @@ export default function HouseCard(props: any) {
   )
 
 
-  if (treeHouse.location != '') {
+  if (treeHouse.location !== '') {
     treeHouse.location = "- " + treeHouse.location
   }
 
@@ -229,14 +229,14 @@ export default function HouseCard(props: any) {
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p" align='left' >
               {
-                treeHouse.sqft != ""
+                treeHouse.sqft !== ""
                   ? `- ${treeHouse.sqft} sqft`
                   : null
               }
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p" align='left' >
               {
-                treeHouse.address != ""
+                treeHouse.address !== ""
                   ? `- ${treeHouse.address}`
                   : null
               }

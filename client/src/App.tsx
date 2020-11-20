@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import MenuAppBar from './components/app-bar/app-bar'
 import { ThemeProvider } from '@material-ui/core/styles'
-import { BrowserRouter as Router, Route, Switch, RouteComponentProps, Redirect, Link, useHistory } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import Auth from './utils/Auth';
 import {
   PrivateRoute

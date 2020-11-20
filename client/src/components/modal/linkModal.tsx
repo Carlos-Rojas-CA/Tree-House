@@ -84,20 +84,20 @@ export default function LinkModal(props: any) {
             loadingEffect();
             API.scrape(webLink)
                 .then(({ data }: IScrapeData) => {
-                    console.log("before")
-                    console.log(data)
-                    console.log("after")
+                    // console.log("before")
+                    // console.log(data)
+                    // console.log("after")
 
                     //Everything following is after a post to the database
 
 
                     handleClose()
                     //Added to database.
-                    if(data.error != "Deleted") {
+                    if(data.error !== "Deleted") {
                         API.updateTreeHouse(props.club, data)
                             .then((results: any) => {
                                 props.setAddedLink(props.addedLink * -1) //This will cause the Dashboard to refresh.
-                                console.log(results)
+                                // console.log(results)
                             })
                     }
 

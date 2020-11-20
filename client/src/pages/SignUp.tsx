@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -43,9 +43,7 @@ function SignUp(props: any): any {
     let history = useHistory()
     const [user, setUser] = useState<IUser>({ name: '', email: '', password: '' })
     const [error, setError] = useState({email: '', password: '', name: ''})
-    // const [message, setMessage] = useState('')
     const classes = useStyles();
-
     const updateField = (e: any) => {
         setUser({
             ...user,
@@ -53,13 +51,9 @@ function SignUp(props: any): any {
         })
     }
 
+    // CREATE NEW ACCOUNT
     const processForm = (e: any) => {
         e.preventDefault();
-        console.log(user)
-
-        // create a string for an HTTP body message
-        //const { email, password } = this.state.user;
-
         API.signUp(user)
             .then((res: any) => {
                 console.log(res)
@@ -68,20 +62,11 @@ function SignUp(props: any): any {
                     // save the token
                     Auth.authenticateUser(res.data.token);
                     console.log(res)
-
-                    //props.toggleAuthStatus()
                     history.push("/dashboard")
                 })
             })
             .catch((errors: any) => {
                 setError(errors.response.data.errors)
-                console.log(errors.response)
-                // const errors = response.data.errors ? response.data.errors : {};
-                // errors.summary = response.data.message;
-
-                // setError({
-                //   errors
-                // });
             });
     }
 
@@ -95,10 +80,11 @@ function SignUp(props: any): any {
                             backgroundColor: "#98c1da", 
                             padding: "10px",
                             borderRadius: "10px",
-                            // border: "2px solid #44d362",
                             marginTop: "10px"}}>
                     <form className={classes.form} onSubmit={processForm} noValidate>
                         
+
+                        {/* NAME FIELD FOR SIGN UP */}
                             <TextField
                                 autoComplete="name"
                                 name="name"
@@ -118,7 +104,7 @@ function SignUp(props: any): any {
                                     : null
                             }
                         
-                        
+                        {/* EMAIL FIELD FOR SIGN UP */}
                             <TextField
                                 variant="outlined"
                                 required
@@ -138,6 +124,7 @@ function SignUp(props: any): any {
                                 : null
                         }
                         
+                        {/* PASSWORD FIELD */}
                             <TextField
                                 variant="outlined"
                                 required
@@ -151,6 +138,7 @@ function SignUp(props: any): any {
                                 id="password"
                                 autoComplete="current-password"
                             />
+                        
                         
                         {
                             error.password === 'Password must have at least 8 characters.'
