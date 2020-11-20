@@ -244,7 +244,7 @@ function Dashboard(props: any): any {
                                     }}
                                     className={classes.submit}
                                 >
-
+                                    Start
                                 </Button>
 
                             </form>

@@ -111,9 +111,6 @@ async function craigslist(brower, page, url) {
         const selector = "a[id^='2_thumb_']"
 
 
-        //document.querySelector("#postingbody")
-
-
         //This gets the rest of the images if there are more than 1.
         if (numberImgs > 1) {
             const hoverEl = await page.hover(selector)  //This is necessary to active javascript on the page to load the picture/img tag under the divs
@@ -165,7 +162,6 @@ async function craigslistTextData(page) {
     const titleTxt = await title.jsonValue();
 
     //This gets the price of the ad.
-    // /html/body/section/section/h2/span/span[2]
     const [el3] = await page.$x('//*[@class="price"]')
     const price = await el3.getProperty('textContent')
     const priceTxt = await price.jsonValue();
@@ -188,18 +184,22 @@ async function craigslistTextData(page) {
         // bath = bathTxt
     }
 
+    // Check elements for address
     const [el6] = await page.$x("/html/body/section/section/section/div[1]/div/div[2]")
     if (el6 != null) {
         const addressEl = await el6.getProperty('textContent')
         address = await addressEl.jsonValue();
     }
 
+
+    // Check elements for address hyperlink
     const [el7] = await page.$x("/html/body/section/section/section/div[1]/div/p/small/a")
     if (el7 != null) {
         const addressHyperEl = await el7.getProperty('href')
         addressHyper = await addressHyperEl.jsonValue()
     }
 
+    // Check elements for general location
     const [el8] = await page.$x("/html/body/section/section/h2/span/small")
     if (el8 != null) {
         const locationEl = await el8.getProperty('textContent')
@@ -207,9 +207,8 @@ async function craigslistTextData(page) {
         location = locationText.split('(')[1].split(')')[0]
     }
 
-    ///html/body/section/section/section/div[1]/p[1]/span[2]/b
-    ///html/body/section/section/section/div[1]/p[1]/span[3]
 
+    // Check elements for sqFt
     const [el9] = await page.$x("html/body/section/section/section/div[1]/p[1]/span[2]/b")
     if (el9 != null) {
         const sqftEl = await el9.getProperty('textContent')
@@ -217,28 +216,14 @@ async function craigslistTextData(page) {
         // console.log(sqftText, "180")
     }
 
+    // Check elements for description
     const [el12] = await page.$x('//*[@id="postingbody"]')
     if (el12 != null) {
         const descriptEl = await el12.getProperty('textContent')
         description = await descriptEl.jsonValue();
         description = description.split('QR Code Link to This Post')[1].trim()
-        //descritption = description.split('Search Keywords:')[0].trim()
     }
 
-    // console.log("here 186")
-    // const el10 = await page.$('#postingbody')
-
-
-    // console.log("here 194")
-    // const html = await page.evaluate(body => body.innerHTML, el10);
-    // console.log("here 198")
-    // //console.log(el10)
-    // if (el10 != null) {
-    //     // console.log(el10)
-    //     // const descriptEl = await el10.getProperty('textContent')
-    //     // sqftText = await sqftEl.jsonValue();
-    //     // console.log(sqftText, "180")
-    // }
 
 
     return { title: titleTxt, price: priceTxt, bed: bed, bath: bath, address: address, location: location, addressHyper: addressHyper, sqft: sqftText, description: description }
@@ -248,7 +233,10 @@ async function craigslistTextData(page) {
 //     .get(scrapeData(url))
 
 module.exports = scrapeData
-//  scrapeData;
+
+
+
+// ~~~THIS IS FOR TESTING 
 
 // scrapeData("https://sandiego.craigslist.org/csd/apa/d/san-diego-proper-design-smartly-priced/7232887666.html")
 
