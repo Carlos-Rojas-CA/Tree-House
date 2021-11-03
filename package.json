@@ -43,6 +43,6 @@
     "passport-local": "^1.0.0",
     "puppeteer": "^3.3.0",
     "typescript": "^3.9.7",
-    "validator": "^12.2.0"
+    "validator": "^13.7.0"
   }
 }
